@@ -22,7 +22,7 @@ class LoginViewController: UIViewController {
     
     
     private func setupButtons() {
-        signUpButton.setTitle("Login", for: .normal)
+        signUpButton.setTitle("Sign Up", for: .normal)
         signUpButton.setTitleColor(.CustomYellowGreen(), for: .normal)
         signUpButton.titleLabel?.font = .montserrat18()
         
@@ -32,11 +32,29 @@ class LoginViewController: UIViewController {
         setupConstraints()
         setupButtons()
         view.backgroundColor = .black
+        
+        signInButton.addTarget(self, action: #selector(signInButtonTapped), for: .touchUpInside)
+        signUpButton.addTarget(self, action: #selector(signUpButtonTapped), for: .touchUpInside)
     }
     
+    @objc private func signInButtonTapped() {
+        print(#function)
+        AuthService.shared.login(email: emailTextField.text!, password: passwordTextField.text!) { (result) in
+            switch (result) {
+            case .success(let user):
+                self.showAllert(with: "Congrats", and: "You are authorized!")
+                print(user.email!)
+            case .failure(let error):
+                self.showAllert(with: "Error", and: error.localizedDescription)
+            }
+        }
+    }
     
-    
-    
+    @objc private func signUpButtonTapped() {
+        print(#function)
+        let signUpVC = SignUpViewController()
+        present(signUpVC, animated: true, completion: nil)
+    }
 }
 
 // MARK: Setup constraints
