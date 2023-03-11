@@ -22,6 +22,10 @@ class AuthViewController: UIViewController {
     
     let signInButton = UIButton(title: "Login", titleColor: .white, backGroundColor: .CustomYellowGreen(), font: .montserrat18(), isShadow: false, cornerRadius: 4)
     
+    let loginVC = LoginViewController()
+    
+    let signUpVC = SignUpViewController()
+    
     private func setupButtons() {
         
     }
@@ -30,6 +34,20 @@ class AuthViewController: UIViewController {
         super.viewDidLoad()
         assignbackground()
         setupConstraints()
+        
+        signUpButton.addTarget(self, action: #selector(signUpButtonTapped), for: .touchUpInside)
+        
+        signInButton.addTarget(self, action: #selector(signInButtonTapped), for: .touchUpInside)
+    }
+    
+    @objc func signUpButtonTapped() {
+        print(#function)
+        present(signUpVC, animated: true, completion: nil)
+    }
+    
+    @objc func signInButtonTapped() {
+        print(#function)
+        present(loginVC, animated: true, completion: nil)
     }
     
     func assignbackground(){
