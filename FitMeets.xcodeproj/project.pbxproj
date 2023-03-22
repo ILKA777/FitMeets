@@ -58,6 +58,9 @@
 		41CEB70629B7C9EE00DA8B79 /* MontserratAlternates-Italic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 41CEB6E129B7C9ED00DA8B79 /* MontserratAlternates-Italic.otf */; };
 		41CEB70729B7C9EE00DA8B79 /* Montserrat-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 41CEB6E229B7C9ED00DA8B79 /* Montserrat-SemiBold.otf */; };
 		41DB94EE29BA726A00BD502E /* SelectSportsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41DB94ED29BA726900BD502E /* SelectSportsViewController.swift */; };
+		41DCA89B29CAFEBF00EF90BE /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41DCA89829CAFEBF00EF90BE /* ListViewController.swift */; };
+		41DCA89C29CAFEBF00EF90BE /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41DCA89929CAFEBF00EF90BE /* MainTabBarController.swift */; };
+		41DCA89D29CAFEBF00EF90BE /* PeopleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41DCA89A29CAFEBF00EF90BE /* PeopleViewController.swift */; };
 		41E8915B29B7AAA100AE705C /* SegmentedControl + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E8915A29B7AAA100AE705C /* SegmentedControl + Extension.swift */; };
 		41FF37D329AC9C7C006701CE /* UIView_Pin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41FF37D229AC9C7C006701CE /* UIView_Pin.swift */; };
 		41FF37D529ACBAC9006701CE /* StackView + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41FF37D429ACBAC9006701CE /* StackView + Extension.swift */; };
@@ -119,6 +122,9 @@
 		41CEB6E129B7C9ED00DA8B79 /* MontserratAlternates-Italic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "MontserratAlternates-Italic.otf"; sourceTree = "<group>"; };
 		41CEB6E229B7C9ED00DA8B79 /* Montserrat-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-SemiBold.otf"; sourceTree = "<group>"; };
 		41DB94ED29BA726900BD502E /* SelectSportsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectSportsViewController.swift; sourceTree = "<group>"; };
+		41DCA89829CAFEBF00EF90BE /* ListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
+		41DCA89929CAFEBF00EF90BE /* MainTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
+		41DCA89A29CAFEBF00EF90BE /* PeopleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeopleViewController.swift; sourceTree = "<group>"; };
 		41E8915A29B7AAA100AE705C /* SegmentedControl + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SegmentedControl + Extension.swift"; sourceTree = "<group>"; };
 		41FF37D229AC9C7C006701CE /* UIView_Pin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIView_Pin.swift; sourceTree = "<group>"; };
 		41FF37D429ACBAC9006701CE /* StackView + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StackView + Extension.swift"; sourceTree = "<group>"; };
@@ -193,14 +199,11 @@
 				413D9454299981F4007A8202 /* Fonts */,
 				4147705C29952F0F00500D69 /* AppDelegate.swift */,
 				4147705E29952F0F00500D69 /* SceneDelegate.swift */,
-				4147706029952F0F00500D69 /* AuthViewController.swift */,
-				41FF37D629ACBEB4006701CE /* SignUpViewController.swift */,
-				41A66B9429B4F20600FEE599 /* SetupProfileViewController.swift */,
-				41DB94ED29BA726900BD502E /* SelectSportsViewController.swift */,
-				41A66B9229B4D35700FEE599 /* LoginViewController.swift */,
+				41DCA89E29CAFEC900EF90BE /* SignIn */,
 				4147706529952F1200500D69 /* Assets.xcassets */,
 				4147706729952F1200500D69 /* LaunchScreen.storyboard */,
 				4147706A29952F1200500D69 /* Info.plist */,
+				41DCA89729CAFEBF00EF90BE /* Controllers */,
 				413D945E2999920E007A8202 /* Extensions */,
 			);
 			path = FitMeets;
@@ -247,6 +250,28 @@
 				41CEB6E229B7C9ED00DA8B79 /* Montserrat-SemiBold.otf */,
 			);
 			path = "montserrat full version";
+			sourceTree = "<group>";
+		};
+		41DCA89729CAFEBF00EF90BE /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				41DCA89829CAFEBF00EF90BE /* ListViewController.swift */,
+				41DCA89929CAFEBF00EF90BE /* MainTabBarController.swift */,
+				41DCA89A29CAFEBF00EF90BE /* PeopleViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		41DCA89E29CAFEC900EF90BE /* SignIn */ = {
+			isa = PBXGroup;
+			children = (
+				4147706029952F0F00500D69 /* AuthViewController.swift */,
+				41FF37D629ACBEB4006701CE /* SignUpViewController.swift */,
+				41A66B9429B4F20600FEE599 /* SetupProfileViewController.swift */,
+				41DB94ED29BA726900BD502E /* SelectSportsViewController.swift */,
+				41A66B9229B4D35700FEE599 /* LoginViewController.swift */,
+			);
+			path = SignIn;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -361,6 +386,7 @@
 				413D944C29997B76007A8202 /* UIFont + Extension.swift in Sources */,
 				4147706129952F0F00500D69 /* AuthViewController.swift in Sources */,
 				41A66B9529B4F20700FEE599 /* SetupProfileViewController.swift in Sources */,
+				41DCA89D29CAFEBF00EF90BE /* PeopleViewController.swift in Sources */,
 				413D9460299994C0007A8202 /* ButtonFormView.swift in Sources */,
 				413D945C29998D60007A8202 /* Label + Extension.swift in Sources */,
 				41A66B9729B4F4CD00FEE599 /* AddPhotoView.swift in Sources */,
@@ -369,7 +395,9 @@
 				41E8915B29B7AAA100AE705C /* SegmentedControl + Extension.swift in Sources */,
 				41FF37D329AC9C7C006701CE /* UIView_Pin.swift in Sources */,
 				4147705F29952F0F00500D69 /* SceneDelegate.swift in Sources */,
+				41DCA89C29CAFEBF00EF90BE /* MainTabBarController.swift in Sources */,
 				41DB94EE29BA726A00BD502E /* SelectSportsViewController.swift in Sources */,
+				41DCA89B29CAFEBF00EF90BE /* ListViewController.swift in Sources */,
 				414770712995484800500D69 /* UIButton + Extension.swift in Sources */,
 				41A66B9329B4D35700FEE599 /* LoginViewController.swift in Sources */,
 				41FF37D529ACBAC9006701CE /* StackView + Extension.swift in Sources */,
