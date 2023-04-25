@@ -12,13 +12,37 @@ class MainTabBarController:UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let listViewController = ListViewController()
-        let peopleViewController = PeopleViewController()
+        tabBar.tintColor = .CustomYellowGreen()
+        let homeViewController = HomeViewController()
+        let subscribersViewController = SubscribersViewController()
+        let addEventViewController = AddEventViewController()
+        let profileViewController = ProfileViewController()
+        let notificationsViewController = NotificationsViewController()
+        
+        let homeImage = UIImage(systemName: "house")!
+        let peopleImage = UIImage(systemName: "person.2")!
+        let plusImage = UIImage(systemName: "plus.circle")!
+        let personImage = UIImage(systemName: "person")!
+        let bellImage = UIImage(systemName: "bell")!
+        
+        
+        
         
         viewControllers = [
             
-            listViewController,
-            peopleViewController
+            generateNavigationController(rootViewController: homeViewController, title: "", image: homeImage),
+            generateNavigationController(rootViewController: subscribersViewController, title: "", image: peopleImage),
+            generateNavigationController(rootViewController: addEventViewController, title: "", image: plusImage),
+            generateNavigationController(rootViewController: notificationsViewController, title: "", image: bellImage),
+            generateNavigationController(rootViewController: profileViewController, title: "", image: personImage)
+           
         ]
+    }
+    
+    private func generateNavigationController(rootViewController: UIViewController, title: String, image: UIImage) -> UIViewController {
+        let navigationVC = UINavigationController(rootViewController: rootViewController)
+        navigationVC.tabBarItem.title = title
+        navigationVC.tabBarItem.image = image
+        return navigationVC
     }
 }
