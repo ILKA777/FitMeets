@@ -38,8 +38,14 @@ class SetupProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .black
+        continueButton.addTarget(self, action: #selector(navigateToSecondViewController), for: .touchUpInside)
         setupConstraints()
     }
+    @objc func navigateToSecondViewController() {
+        let selectSportVC = SelectSportsViewController()
+        navigationController?.pushViewController(selectSportVC, animated: true)
+    }
+
 }
 
 // MARK: - Setup constraints

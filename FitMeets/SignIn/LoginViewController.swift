@@ -32,8 +32,26 @@ class LoginViewController: UIViewController {
         setupConstraints()
         setupButtons()
         view.backgroundColor = .black
+        signInButton.addTarget(self, action: #selector(signInButtonTapped), for: .touchUpInside)
+        signUpButton.addTarget(self, action: #selector(signUpButtonTapped), for: .touchUpInside)
+        
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        signInButton.addTarget(self, action: #selector(signInButtonTapped), for: .touchUpInside)
+        signUpButton.addTarget(self, action: #selector(signUpButtonTapped), for: .touchUpInside)
+    }
+
+    @objc private func signInButtonTapped() {
+        let mainVC = MainTabBarController()
+        navigationController?.pushViewController(mainVC, animated: true)
+    }
+
+    @objc private func signUpButtonTapped() {
+        let loginVC = SignUpViewController()
+        navigationController?.pushViewController(loginVC, animated: true)
+    }
     
     
     
@@ -90,7 +108,10 @@ extension LoginViewController {
             bottomStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
             bottomStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40)])
         
+        
+        
     }
+    
 }
 
 

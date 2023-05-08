@@ -22,14 +22,27 @@ class AuthViewController: UIViewController {
     
     let signInButton = UIButton(title: "Login", titleColor: .white, backGroundColor: .CustomYellowGreen(), font: .montserrat18(), isShadow: false, cornerRadius: 4)
     
+    
+    @objc private func signUpButtonTapped() {
+        let signUpVC = SignUpViewController()
+        navigationController?.pushViewController(signUpVC, animated: true)
+    }
+
+    @objc private func signInButtonTapped() {
+        let loginVC = LoginViewController()
+        navigationController?.pushViewController(loginVC, animated: true)
+    }
+    
     private func setupButtons() {
-        
+        signUpButton.addTarget(self, action: #selector(signUpButtonTapped), for: .touchUpInside)
+        signInButton.addTarget(self, action: #selector(signInButtonTapped), for: .touchUpInside)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         assignbackground()
         setupConstraints()
+        setupButtons()
     }
     
     func assignbackground(){
@@ -45,6 +58,8 @@ class AuthViewController: UIViewController {
             self.view.sendSubviewToBack(imageView)
     }
 }
+
+
 
 // MARK: - Setup constraints
 extension AuthViewController {

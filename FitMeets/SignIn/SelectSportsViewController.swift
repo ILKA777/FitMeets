@@ -17,35 +17,56 @@ class SelectSportsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
+        setupConstraints()
     }
     
     let sportsLabel = UILabel(text: "Profile", font: .montserratBlack30(), textColor: .white)
+    let continueButton = UIButton(title: "Continue", titleColor: .black, backGroundColor: .CustomYellowGreen(), font: .montserrat18(), isShadow: false, cornerRadius: 4)
+    private func navigateToAddPhotoVC() {
+        let addPhotoVC = AddPhotoViewController()
+        navigationController?.pushViewController(addPhotoVC, animated: true)
+    }
+
     
     func setupViews() {
         // Set up the background color
+        continueButton.addTarget(self, action: #selector(continueButtonTapped(_:)), for: .touchUpInside)
+
         view.backgroundColor = .black
+        let titleLabel = UILabel()
+            titleLabel.text = "Favorite sports"
+            titleLabel.textColor = .white
+        titleLabel.font = .montserratBlack25()
+            titleLabel.translatesAutoresizingMaskIntoConstraints = false
+            view.addSubview(titleLabel)
+            
+            // Add constraints for titleLabel
+            NSLayoutConstraint.activate([
+                titleLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
+                titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20)
+            ])
+
         
-        // Add the title label
-//        let sportsLabel = UILabel(text: "Profile", font: .montserratBlack30(), textColor: .white)
-        
-        //UILabel(frame: CGRect(x: 20, y: 50, width: view.frame.width - 40, height: 50))
-//        sportsLabel.text = "Favorite sports"
-//        sportsLabel.textColor = .white
-//        sportsLabel.font = UIFont.boldSystemFont(ofSize: 28)
-//        view.addSubview(sportsLabel)
         
         // Add the subtitle label
-        let subtitleLabel = UILabel(frame: CGRect(x: 20, y: 100, width: view.frame.width - 40, height: 30))
+        let subtitleLabel = UILabel()
         subtitleLabel.text = "You can skip this part"
         subtitleLabel.textColor = .gray
         subtitleLabel.font = UIFont.systemFont(ofSize: 18)
+        subtitleLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(subtitleLabel)
+        NSLayoutConstraint.activate([
+            subtitleLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            subtitleLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10),
+            subtitleLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20)
+        ])
+
         
         // Add the sport buttons
         let buttonWidth: CGFloat = (view.frame.width - 60) / 3
         let buttonHeight: CGFloat = 50
         var xPosition: CGFloat = 20
-        var yPosition: CGFloat = 150
+        var yPosition: CGFloat = 200
         
         for sport in sports {
             let button = UIButton(type: .system)
@@ -67,15 +88,10 @@ class SelectSportsViewController: UIViewController {
             }
         }
         
-        // Add the continue button
-        let continueButton = UIButton(type: .system)
-        continueButton.frame = CGRect(x: 0, y: view.frame.height - 100, width: view.frame.width, height: 50)
-        continueButton.setTitle("Continue", for: .normal)
-        continueButton.setTitleColor(.white, for: .normal)
-        continueButton.titleLabel?.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
-        continueButton.backgroundColor = .blue
-        continueButton.addTarget(self, action: #selector(continueButtonTapped(_:)), for: .touchUpInside)
-        view.addSubview(continueButton)
+        
+
+  
+        
     }
     
     @objc func sportButtonTapped(_ sender: UIButton) {
@@ -90,22 +106,31 @@ class SelectSportsViewController: UIViewController {
     }
     
     @objc func continueButtonTapped(_ sender: UIButton) {
-        // Do something with the selected sports
+        navigateToAddPhotoVC()
+
         
         
     }
 }
 
 // MARK: - Setup constraints
-extension SetupProfileViewController {
+extension SelectSportsViewController {
 
     private func setupConstraints() {
 
         
 
-        continueButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
         
-        
+        continueButton.translatesAutoresizingMaskIntoConstraints = false
+            
+        view.addSubview(continueButton)
+            
+        NSLayoutConstraint.activate([
+            continueButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
+            continueButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            continueButton.heightAnchor.constraint(equalToConstant: 60),
+            continueButton.widthAnchor.constraint(equalToConstant: 300)
+        ])
 //        sportsLabel.translatesAutoresizingMaskIntoConstraints = false
 //        
 //        view.addSubview(sportsLabel)

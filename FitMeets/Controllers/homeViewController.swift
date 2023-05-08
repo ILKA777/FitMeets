@@ -12,12 +12,14 @@ class HomeViewController:UIViewController {
     
     var collectionView: UICollectionView!
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupSearchBar()
+
         setupCollectionView()
     }
+
+    
     
     private func setupCollectionView() {
         collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: UICollectionViewFlowLayout())
@@ -32,9 +34,6 @@ class HomeViewController:UIViewController {
     }
     
     private func setupSearchBar() {
-        navigationController?.navigationBar.barTintColor = .black
-
-        navigationController?.navigationBar.shadowImage = UIImage()
         let searchController = UISearchController(searchResultsController: nil)
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
@@ -42,7 +41,17 @@ class HomeViewController:UIViewController {
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.delegate = self
         searchController.searchBar.searchTextField.textColor = .white
-        
+
+        // Определите констрэйнты для searchBar
+        searchController.searchBar.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(searchController.searchBar)
+
+        NSLayoutConstraint.activate([
+            searchController.searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            searchController.searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            searchController.searchBar.heightAnchor.constraint(equalToConstant: 50)
+        ])
+
     }
 }
 

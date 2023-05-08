@@ -30,6 +30,8 @@ class SignUpViewController: UIViewController {
         loginButton.setTitle("Login", for: .normal)
         loginButton.setTitleColor(.CustomYellowGreen(), for: .normal)
         loginButton.titleLabel?.font = .montserrat18()
+        loginButton.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
+        signUpButton.addTarget(self, action: #selector(signUpButtonTapped), for: .touchUpInside)
         
     }
     
@@ -40,7 +42,23 @@ class SignUpViewController: UIViewController {
         setupConstraints()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        signUpButton.addTarget(self, action: #selector(signUpButtonTapped), for: .touchUpInside)
+        loginButton.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
+    }
+
+    @objc private func signUpButtonTapped() {
+        let setupProfileVC = SetupProfileViewController()
+        navigationController?.pushViewController(setupProfileVC, animated: true)
+    }
+
+    @objc private func loginButtonTapped() {
+        let loginVC = LoginViewController()
+        navigationController?.pushViewController(loginVC, animated: true)
+    }
     
+ 
     
 }
 

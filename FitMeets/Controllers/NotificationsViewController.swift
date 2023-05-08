@@ -8,10 +8,18 @@
 import UIKit
 
 class NotificationsViewController: UIViewController {
+    let titleLabel = UILabel(text: "Notifications", font: .montserratBlack25(), textColor: .white)
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .blue
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(titleLabel)
+        
+        NSLayoutConstraint.activate([
+            titleLabel.pinLeft(to: self.view, 40),
+            titleLabel.pinTop(to: self.view, 90)
+        ])
+        view.backgroundColor = .black
     }
 }
 

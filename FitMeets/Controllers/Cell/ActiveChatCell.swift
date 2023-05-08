@@ -8,7 +8,9 @@
 
 import UIKit
 
-class ActiveChatCell: UICollectionViewCell, SelfConfigureCell {
+class ActiveChatCell: UICollectionViewCell, SelfConfiguringCell {
+ 
+    
     static var reuseId: String = "ActiveChatCell"
     
     let friendImageView = UIImageView()
@@ -16,10 +18,11 @@ class ActiveChatCell: UICollectionViewCell, SelfConfigureCell {
     let lastMessage = UILabel(text: "How are you?", font: .montserrat18(), textColor: .white)
     let gradientView = UIView()
     
-    func configure(with value: MChat) {
-        friendImageView.image = UIImage(named: value.userImageString)
-        friendName.text = value.username
-        lastMessage.text = value.lastMessage
+    func configure<U>(with value: U) where U : Hashable {
+        guard let chat: MChat = value as? MChat else { return }
+        friendImageView.image = UIImage(named: chat.userImageString)
+        friendName.text = chat.username
+        lastMessage.text = chat.lastMessage
     }
     
     

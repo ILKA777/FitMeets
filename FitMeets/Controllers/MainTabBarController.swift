@@ -11,12 +11,13 @@ class MainTabBarController:UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        navigationItem.hidesBackButton = true
+       
         tabBar.tintColor = .CustomYellowGreen()
         let homeViewController = HomeViewController()
         let subscribersViewController = SubscribersViewController()
-        let addEventViewController = AddEventViewController()
-        let profileViewController = ProfileViewController()
+        let addEventViewController = NewEventViewController()
+        let profileViewController = UserProfileViewController()
         let notificationsViewController = NotificationsViewController()
         
         let homeImage = UIImage(systemName: "house")!
@@ -29,7 +30,6 @@ class MainTabBarController:UITabBarController {
         
         
         viewControllers = [
-            
             generateNavigationController(rootViewController: homeViewController, title: "", image: homeImage),
             generateNavigationController(rootViewController: subscribersViewController, title: "", image: peopleImage),
             generateNavigationController(rootViewController: addEventViewController, title: "", image: plusImage),
