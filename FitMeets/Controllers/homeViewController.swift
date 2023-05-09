@@ -15,6 +15,10 @@ class HomeViewController:UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupSearchBar()
+        
+        ApiManager.shared.getEevent {
+            events in print(events.count)
+        }
 
         setupCollectionView()
     }

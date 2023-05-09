@@ -37,6 +37,7 @@
 		41A66B9729B4F4CD00FEE599 /* AddPhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A66B9629B4F4CD00FEE599 /* AddPhotoView.swift */; };
 		41BDD9A029FFE5C8005F851A /* users.json in Resources */ = {isa = PBXBuildFile; fileRef = 41BDD99F29FFE5C7005F851A /* users.json */; };
 		41BDD9A429FFE8A8005F851A /* SubscribersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41BDD9A329FFE8A8005F851A /* SubscribersViewController.swift */; };
+		41C2BCB72A0A590B00593438 /* ApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C2BCB62A0A590B00593438 /* ApiManager.swift */; };
 		41CEB6E329B7C9EE00DA8B79 /* Montserrat-MediumItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 41CEB6BE29B7C9ED00DA8B79 /* Montserrat-MediumItalic.otf */; };
 		41CEB6E429B7C9EE00DA8B79 /* Montserrat-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 41CEB6BF29B7C9ED00DA8B79 /* Montserrat-Bold.otf */; };
 		41CEB6E529B7C9EE00DA8B79 /* Montserrat-BlackItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 41CEB6C029B7C9ED00DA8B79 /* Montserrat-BlackItalic.otf */; };
@@ -124,6 +125,7 @@
 		41A66B9629B4F4CD00FEE599 /* AddPhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPhotoView.swift; sourceTree = "<group>"; };
 		41BDD99F29FFE5C7005F851A /* users.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = users.json; sourceTree = "<group>"; };
 		41BDD9A329FFE8A8005F851A /* SubscribersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscribersViewController.swift; sourceTree = "<group>"; };
+		41C2BCB62A0A590B00593438 /* ApiManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiManager.swift; sourceTree = "<group>"; };
 		41CEB6BE29B7C9ED00DA8B79 /* Montserrat-MediumItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-MediumItalic.otf"; sourceTree = "<group>"; };
 		41CEB6BF29B7C9ED00DA8B79 /* Montserrat-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Bold.otf"; sourceTree = "<group>"; };
 		41CEB6C029B7C9ED00DA8B79 /* Montserrat-BlackItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-BlackItalic.otf"; sourceTree = "<group>"; };
@@ -267,6 +269,7 @@
 		4147705B29952F0F00500D69 /* FitMeets */ = {
 			isa = PBXGroup;
 			children = (
+				41C2BCB52A0A58E300593438 /* Services */,
 				4196294229FFEE0100DA8998 /* Model */,
 				413D9454299981F4007A8202 /* Fonts */,
 				4147705C29952F0F00500D69 /* AppDelegate.swift */,
@@ -290,6 +293,14 @@
 				41231D852A080163005BBD9A /* MEvent.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		41C2BCB52A0A58E300593438 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				41C2BCB62A0A590B00593438 /* ApiManager.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 		41CEB6BD29B7C9ED00DA8B79 /* montserrat full version */ = {
@@ -490,6 +501,7 @@
 				41F34AC92A019F6B00CC449A /* UIImageView + Extension.swift in Sources */,
 				417B9AC72A07A9EA00534676 /* InsertableTextField.swift in Sources */,
 				419629482A000B4100DA8998 /* UserCell.swift in Sources */,
+				41C2BCB72A0A590B00593438 /* ApiManager.swift in Sources */,
 				413D9460299994C0007A8202 /* ButtonFormView.swift in Sources */,
 				41DCA8A029CB09C900EF90BE /* homeViewController.swift in Sources */,
 				4117363129F6A590004818F2 /* ActiveChatCell.swift in Sources */,

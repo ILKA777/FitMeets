@@ -7,26 +7,33 @@
 
 import UIKit
 
-struct MEvent: Hashable, Decodable {
+struct MEvent: Codable {
     
-    var sportType: String
-    var name: String
-    var date: String
-    var time: String
-    var city: String
-    var metro: String
-    var description: String
-    var photoStringURL: String
-    var members: Int
+    var date: String?
+    var time: String?
+    var place: String?
+    var minAge: Int?
+    var maxAge: Int?
+    var description: String?
+    var numberOfParticipants: Int?
     
-    var id: Int
+    var sportType: String?
+    //var name: String
     
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(id)
-    }
+    //var metro: String
     
-    static func == (lhs: MEvent, rhs: MEvent) -> Bool {
-        return lhs.id == rhs.id
-    }
+    //var photoStringURL: String
+    
+    
+//    var id: Int
+//    
+//    func hash(into hasher: inout Hasher) {
+//        hasher.combine(id)
+//    }
+//    
+//    static func == (lhs: MEvent, rhs: MEvent) -> Bool {
+//        return lhs.id == rhs.id
+//    }
     
 }
+typealias Events = [MEvent]

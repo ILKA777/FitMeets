@@ -225,7 +225,7 @@ extension UserProfileViewController: UITableViewDataSource {
         }
         
         // Настройка ячейки с данными мероприятия
-        cell.textLabel?.text = event.name
+        cell.textLabel?.text = event.description
         // Здесь можно добавить дополнительную настройку ячейки
         
         return cell
