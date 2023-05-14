@@ -49,6 +49,42 @@ class SignUpViewController: UIViewController {
     }
 
     @objc private func signUpButtonTapped() {
+        if (passwordTextField.text?.count ?? 0 < 8 || passwordTextField.text != confirmPasswordTextField.text) {
+            // allert
+            return;
+        }
+        
+        
+        let url = URL(string: "http://localhost:8080/api/v1/auth/register")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+
+        var registerRequest = RegisterRequest(firstname: "DemoName", lastname: "LastDemoName", email:  emailTextField.text ?? "", password: passwordTextField.text ?? "")
+        
+        do {
+            let jsonBody = try JSONEncoder().encode(registerRequest)
+            request.httpBody = jsonBody
+        } catch {
+            print("Failed to encode request body: \(error)")
+            return
+        }
+
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data else {
+                print("No data returned: \(error?.localizedDescription ?? "Unknown error")")
+                return
+            }
+            
+            print(data)
+
+            // Обработка ответа от сервера
+        }
+
+        task.resume()
+        
+        
+        // after registration
         let setupProfileVC = SetupProfileViewController()
         navigationController?.pushViewController(setupProfileVC, animated: true)
     }
