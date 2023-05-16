@@ -9,8 +9,8 @@ import UIKit
 
 class ChatViewController:UIViewController {
     
-//    let activeChats = Bundle.main.decode([MChat].self, from: "activeChats.json")
-//    let waitingChats = Bundle.main.decode([MChat].self, from: "waitingChats.json")
+    let activeChats = Bundle.main.decode([MChat].self, from: "activeChats.json")
+    let waitingChats = Bundle.main.decode([MChat].self, from: "waitingChats.json")
     
     var collectionView: UICollectionView!
     

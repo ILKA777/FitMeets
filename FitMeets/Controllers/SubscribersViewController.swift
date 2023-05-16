@@ -9,7 +9,7 @@ import UIKit
 
 class SubscribersViewController: UIViewController {
     
-    //let users = Bundle.main.decode([MUser].self, from: "users.json")
+    let users = Bundle.main.decode([MUser].self, from: "users.json")
     var collectionView: UICollectionView!
     var dataSource: UICollectionViewDiffableDataSource<Int, MUser>!
     
@@ -56,9 +56,9 @@ class SubscribersViewController: UIViewController {
     }
 
     private func reloadData(with searchText: String?) {
-//        let filtered = users.filter { (user) -> Bool in
-//            user.contains(filter: searchText)
-//        }
+        let filtered = users.filter { (user) -> Bool in
+            user.contains(filter: searchText)
+        }
         var snapshot = NSDiffableDataSourceSnapshot<Int, MUser>()
         snapshot.appendSections([0])
         //snapshot.appendItems(filtered, toSection: 0)

@@ -77,7 +77,6 @@
 		41D161102A13971200CD0679 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41D1610F2A13971200CD0679 /* SettingsViewController.swift */; };
 		41D161122A13D94B00CD0679 /* EventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41D161112A13D94B00CD0679 /* EventViewController.swift */; };
 		41D161142A13EE4700CD0679 /* MNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41D161132A13EE4700CD0679 /* MNotification.swift */; };
-		41D161162A13F41000CD0679 /* NotificationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41D161152A13F41000CD0679 /* NotificationCell.swift */; };
 		41D161182A13F7D900CD0679 /* notifications.json in Resources */ = {isa = PBXBuildFile; fileRef = 41D161172A13F7D900CD0679 /* notifications.json */; };
 		41DB94EE29BA726A00BD502E /* SelectSportsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41DB94ED29BA726900BD502E /* SelectSportsViewController.swift */; };
 		41DCA89B29CAFEBF00EF90BE /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41DCA89829CAFEBF00EF90BE /* ChatViewController.swift */; };
@@ -170,7 +169,6 @@
 		41D1610F2A13971200CD0679 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		41D161112A13D94B00CD0679 /* EventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventViewController.swift; sourceTree = "<group>"; };
 		41D161132A13EE4700CD0679 /* MNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MNotification.swift; sourceTree = "<group>"; };
-		41D161152A13F41000CD0679 /* NotificationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCell.swift; sourceTree = "<group>"; };
 		41D161172A13F7D900CD0679 /* notifications.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = notifications.json; sourceTree = "<group>"; };
 		41DB94ED29BA726900BD502E /* SelectSportsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectSportsViewController.swift; sourceTree = "<group>"; };
 		41DCA89829CAFEBF00EF90BE /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
@@ -207,7 +205,6 @@
 				4117363029F6A590004818F2 /* ActiveChatCell.swift */,
 				4117363229F6C212004818F2 /* WaitingChatCell.swift */,
 				419629472A000B4100DA8998 /* UserCell.swift */,
-				41D161152A13F41000CD0679 /* NotificationCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -532,7 +529,6 @@
 				41E8915B29B7AAA100AE705C /* SegmentedControl + Extension.swift in Sources */,
 				41231D842A07E60C005BBD9A /* UserProfileViewController.swift in Sources */,
 				41DCA8A629CB0A8E00EF90BE /* NotificationsViewController.swift in Sources */,
-				41D161162A13F41000CD0679 /* NotificationCell.swift in Sources */,
 				41FF37D329AC9C7C006701CE /* UIView_Pin.swift in Sources */,
 				417B9AC92A07C67500534676 /* ChatRequestViewController.swift in Sources */,
 				4147705F29952F0F00500D69 /* SceneDelegate.swift in Sources */,
