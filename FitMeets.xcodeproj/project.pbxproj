@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		19AEF3992A0A8B750039907E /* RegisterRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19AEF3982A0A8B750039907E /* RegisterRequest.swift */; };
 		4117363129F6A590004818F2 /* ActiveChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4117363029F6A590004818F2 /* ActiveChatCell.swift */; };
 		4117363329F6C212004818F2 /* WaitingChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4117363229F6C212004818F2 /* WaitingChatCell.swift */; };
 		4117363629F6C3B0004818F2 /* SelfConfiguringCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4117363529F6C3B0004818F2 /* SelfConfiguringCell.swift */; };
@@ -97,6 +98,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		19AEF3982A0A8B750039907E /* RegisterRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterRequest.swift; sourceTree = "<group>"; };
 		4117363029F6A590004818F2 /* ActiveChatCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveChatCell.swift; sourceTree = "<group>"; };
 		4117363229F6C212004818F2 /* WaitingChatCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaitingChatCell.swift; sourceTree = "<group>"; };
 		4117363529F6C3B0004818F2 /* SelfConfiguringCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfConfiguringCell.swift; sourceTree = "<group>"; };
@@ -199,6 +201,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		19AEF3972A0A8B500039907E /* ServerAuth */ = {
+			isa = PBXGroup;
+			children = (
+				19AEF3982A0A8B750039907E /* RegisterRequest.swift */,
+			);
+			path = ServerAuth;
+			sourceTree = "<group>";
+		};
 		4117362F29F6A574004818F2 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
@@ -380,6 +390,7 @@
 		41DCA89E29CAFEC900EF90BE /* SignIn */ = {
 			isa = PBXGroup;
 			children = (
+				19AEF3972A0A8B500039907E /* ServerAuth */,
 				4147706029952F0F00500D69 /* AuthViewController.swift */,
 				41FF37D629ACBEB4006701CE /* SignUpViewController.swift */,
 				41A66B9429B4F20600FEE599 /* SetupProfileViewController.swift */,
@@ -535,6 +546,7 @@
 				41DCA89C29CAFEBF00EF90BE /* MainTabBarController.swift in Sources */,
 				4196294A2A000FFE00DA8998 /* UIViewController + Extension.swift in Sources */,
 				41DB94EE29BA726A00BD502E /* SelectSportsViewController.swift in Sources */,
+				19AEF3992A0A8B750039907E /* RegisterRequest.swift in Sources */,
 				4196294529FFEE0100DA8998 /* MChat.swift in Sources */,
 				41DCA89B29CAFEBF00EF90BE /* ChatViewController.swift in Sources */,
 				4117363329F6C212004818F2 /* WaitingChatCell.swift in Sources */,
