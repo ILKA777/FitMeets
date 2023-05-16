@@ -7,9 +7,26 @@
 
 import UIKit
 
-class NewEventViewController: UIViewController {
+class NewEventViewController: UIViewController, UITextFieldDelegate {
     let titleLabel = UILabel(text: "New event", font: .montserratBlack25(), textColor: .white)
-    
+    let minAgeTextField: UITextField = {
+            let textField = UITextField()
+            textField.placeholder = "Min Age"
+            textField.keyboardType = .numberPad
+            textField.borderStyle = .roundedRect
+            textField.translatesAutoresizingMaskIntoConstraints = false
+            return textField
+        }()
+        
+        let maxAgeTextField: UITextField = {
+            let textField = UITextField()
+            textField.placeholder = "Max Age"
+            textField.keyboardType = .numberPad
+            textField.borderStyle = .roundedRect
+            textField.translatesAutoresizingMaskIntoConstraints = false
+            return textField
+        }()
+        
     let sportTypeButton = UIButton(title: "Sport type", titleColor: .black, backGroundColor: .CustomYellowGreen(), font: .montserrat18(), isShadow: false, cornerRadius: 4)
     
     let sports = ["football", "hockey", "chess", "volleyball", "cycling", "ski", "basketball", "yoga", "climbing", "dancing", "running", "swimming"]
@@ -31,6 +48,8 @@ class NewEventViewController: UIViewController {
     
     let addPhotoButton = UIButton(title: "Add photo", titleColor: .black, backGroundColor: .CustomYellowGreen(), font: .montserrat18(), isShadow: false, cornerRadius: 4)
     
+    let createEventButton = UIButton(title: "Create event", titleColor: .white, backGroundColor: .CustomBlue(), font: .montserrat18(), isShadow: false, cornerRadius: 4)
+    
     let sportsTableView: UITableView = {
            let tableView = UITableView()
            tableView.register(UITableViewCell.self, forCellReuseIdentifier: "SportCell")
@@ -50,8 +69,15 @@ class NewEventViewController: UIViewController {
         setupTimeSlider()
         participantsTimeSlider()
     
-        
+        minAgeTextField.delegate = self
+        maxAgeTextField.delegate = self
+        dateTextField.delegate = self
         sportsTableView.delegate = self
+        cityTextField.delegate = self
+        metroTextField.delegate = self
+        addressTextField.delegate = self
+        descriptionTextField.delegate = self
+        
         sportsTableView.dataSource = self
         sportsTableView.frame = CGRect(x: 0, y: 0, width: 200, height: 300)
         
@@ -63,15 +89,35 @@ class NewEventViewController: UIViewController {
         
         sportTypeButton.addTarget(self, action: #selector(showSportsList(_:)), for: .touchUpInside)
                
-        let sportTypeStackView = UIStackView(arrangedSubviews:
-                                [sportTypeButton], axis: .vertical, spacing: 0)
 
         timeSlider.addTarget(self, action: #selector(sliderValueChanged(_:)), for: .valueChanged)
         participantsSlider.addTarget(self,
                            action: #selector(participantsSliderValueChanged(_:)), for: .valueChanged)
         view.backgroundColor = .black
         setupConstraints()
+        addPhotoButton.addTarget(self, action: #selector(addPhotoButtonTapped(_:)), for: .touchUpInside)
+        createEventButton.addTarget(self, action: #selector(createEventButtonTapped(_:)), for: .touchUpInside)
     }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if touches.first != nil {
+            view.endEditing(true)
+        }
+        super.touchesBegan(touches, with: event)
+    }
+    
+    @objc func addPhotoButtonTapped(_ sender: UIButton) {
+        // Действия при нажатии на кнопку "Add photo"
+    }
+
+    @objc func createEventButtonTapped(_ sender: UIButton) {
+        // Действия при нажатии на кнопку "Create event"
+    }
+
     
     private func setupTimeSlider() {
         timeSlider.minimumValue = 0
@@ -120,6 +166,9 @@ extension NewEventViewController {
     
     private func setupConstraints() {
         
+    
+               
+        
         let sportTypeStackView = UIStackView(arrangedSubviews: [sportTypeButton], axis: .vertical, spacing: 0)
         
         let dateStackView = UIStackView(arrangedSubviews: [dateTextField], axis: .vertical, spacing: 0)
@@ -143,17 +192,25 @@ extension NewEventViewController {
         let descriptionStackView = UIStackView(arrangedSubviews: [descriptionTextField], axis: .vertical, spacing: 0)
         
         let addPhotoStackView = UIStackView(arrangedSubviews: [addPhotoButton], axis: .vertical, spacing: 0)
+        let createEventStackView = UIStackView(arrangedSubviews: [addPhotoButton, createEventButton], axis: .vertical, spacing: 20)
+
+        let ageStackView = UIStackView(arrangedSubviews: [minAgeTextField, maxAgeTextField], axis: .horizontal, spacing: 10)
+        ageStackView.distribution = .fillEqually
+
+
         
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(scrollView)
         
-        let stackView = UIStackView(arrangedSubviews: [sportTypeStackView, dateStackView, timeStackView, cityStackView, metroStackView, addressStackView, participantsStackView, descriptionStackView, addPhotoStackView], axis: .vertical, spacing: 30)
+        let stackView = UIStackView(arrangedSubviews: [sportTypeStackView, dateStackView, timeStackView, cityStackView, metroStackView, addressStackView, participantsStackView,ageStackView, descriptionStackView, addPhotoStackView, createEventStackView], axis: .vertical, spacing: 30)
         stackView.translatesAutoresizingMaskIntoConstraints = false
         scrollView.addSubview(stackView)
         
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(titleLabel)
+        
+       
         
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 50),
@@ -162,6 +219,8 @@ extension NewEventViewController {
             scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
         
+        
+
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 10),
             stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
@@ -171,10 +230,30 @@ extension NewEventViewController {
         ])
         
         NSLayoutConstraint.activate([
+            createEventButton.heightAnchor.constraint(equalToConstant: 44)
+        ])
+
+        NSLayoutConstraint.activate([
             titleLabel.pinLeft(to: self.view, 40),
             titleLabel.pinTop(to: self.view, 90)
         ])
+        
+        NSLayoutConstraint.activate([
+            minAgeTextField.heightAnchor.constraint(equalToConstant: 40),
+            maxAgeTextField.heightAnchor.constraint(equalToConstant: 40)
+
+        ])
+        
+        
+                
+               
     }
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+            // Allow only numeric input
+            let allowedCharacters = CharacterSet.decimalDigits
+            let characterSet = CharacterSet(charactersIn: string)
+            return allowedCharacters.isSuperset(of: characterSet)
+        }
 }
 
 // MARK: - SwiftUI

@@ -9,33 +9,47 @@ import UIKit
 
 class UserProfileViewController: UIViewController {
     
-    let nicknameLabel = UILabel()
+    let nicknameLabel = UILabel(text: "@nickname", font: .montserratBlack18(), textColor: .white)
     let settingsButton = UIButton()
     let profileImageView = UIImageView()
     let nameLabel = UILabel()
     let ageCityLabel = UILabel()
     let descriptionTextView = UITextView()
-//    let eventsSegmentedControl = UISegmentedControl(items: ["Organized", "Accepted", "Passed"])
     let eventsSegmentedControl = UISegmentedControl(first: "Organized", second: "Accepted", third: "Passed")
     
     let eventsTableView = UITableView()
     
-    // Пример данных для таблицы
     var organizedEvents = [MEvent]()
     var acceptedEvents = [MEvent]()
     var passedEvents = [MEvent]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        setupSwipeGestureRecognizers()
         setupUI()
         loadData()
     }
     
+    private func setupSwipeGestureRecognizers() {
+            let swipeLeftGesture = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipeGesture(_:)))
+            swipeLeftGesture.direction = .left
+            view.addGestureRecognizer(swipeLeftGesture)
+
+            let swipeRightGesture = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipeGesture(_:)))
+            swipeRightGesture.direction = .right
+            view.addGestureRecognizer(swipeRightGesture)
+        }
+
+        @objc private func handleSwipeGesture(_ gesture: UISwipeGestureRecognizer) {
+            if gesture.direction == .left {
+            } else if gesture.direction == .right {
+                navigationController?.popViewController(animated: true)
+                navigationController?.setNavigationBarHidden(false, animated: true)
+            }
+        }
+    
     private func setupUI() {
         view.backgroundColor = .black
-        
-        // Настройка UI элементов и добавление их на view
         setupNicknameLabel()
         setupSettingsButton()
         setupProfileImageView()
@@ -51,25 +65,24 @@ class UserProfileViewController: UIViewController {
     }
     
     @objc private func settingsButtonTapped(_ sender: UIButton) {
-        // Переход к настройкам профиля
+        let settingsViewController = SettingsViewController()
+        navigationController?.pushViewController(settingsViewController, animated: true)
+        navigationController?.setNavigationBarHidden(true, animated: true)
     }
     
     @objc private func eventsSegmentChanged(_ sender: UISegmentedControl) {
-        // Обновление данных таблицы при изменении сегмента
         eventsTableView.reloadData()
     }
     
-    // Настройка UI элементов
     private func setupNicknameLabel() {
         nicknameLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(nicknameLabel)
         
         NSLayoutConstraint.activate([
-            nicknameLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
+            nicknameLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 8),
             nicknameLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16)
         ])
         
-        // Настройка текста, шрифта и цвета
         nicknameLabel.text = "@nickname"
         nicknameLabel.font = UIFont.montserratBlack18()
         nicknameLabel.textColor = .white
@@ -103,10 +116,9 @@ class UserProfileViewController: UIViewController {
             profileImageView.heightAnchor.constraint(equalToConstant: 80)
         ])
         
-        // Настройка круглой формы изображения
         profileImageView.layer.cornerRadius = 40
         profileImageView.layer.masksToBounds = true
-        profileImageView.backgroundColor = .gray // Временный цвет
+        profileImageView.backgroundColor = .gray
     }
     
     
@@ -136,7 +148,6 @@ class UserProfileViewController: UIViewController {
             ageCityLabel.trailingAnchor.constraint(equalTo: nameLabel.trailingAnchor)
         ])
         
-        // Настройка текста, шрифта и цвета
         ageCityLabel.text = "25 years, New York"
         ageCityLabel.font = .montserrat13()
         ageCityLabel.textColor = .gray
@@ -167,7 +178,7 @@ class UserProfileViewController: UIViewController {
         view.addSubview(eventsSegmentedControl)
         
         NSLayoutConstraint.activate([
-            eventsSegmentedControl.topAnchor.constraint(equalTo: descriptionTextView.bottomAnchor, constant: 16),
+            eventsSegmentedControl.topAnchor.constraint(equalTo: descriptionTextView.bottomAnchor, constant: 8),
             eventsSegmentedControl.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             eventsSegmentedControl.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
         ])
@@ -189,7 +200,6 @@ class UserProfileViewController: UIViewController {
             eventsTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
         
-        // Настройка делегата и источника данных
         eventsTableView.dataSource = self
         eventsTableView.register(UITableViewCell.self, forCellReuseIdentifier: "EventCell")
     }

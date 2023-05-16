@@ -9,8 +9,8 @@ import UIKit
 
 class ChatViewController:UIViewController {
     
-    let activeChats = Bundle.main.decode([MChat].self, from: "activeChats.json")
-    let waitingChats = Bundle.main.decode([MChat].self, from: "waitingChats.json")
+//    let activeChats = Bundle.main.decode([MChat].self, from: "activeChats.json")
+//    let waitingChats = Bundle.main.decode([MChat].self, from: "waitingChats.json")
     
     var collectionView: UICollectionView!
     
@@ -55,8 +55,8 @@ class ChatViewController:UIViewController {
     private func reloadData() {
         var snapshot = NSDiffableDataSourceSnapshot<Section, MChat>()
         snapshot.appendSections([.waitingChats, .activeChats])
-        snapshot.appendItems(waitingChats, toSection: .waitingChats)
-        snapshot.appendItems(activeChats, toSection: .activeChats)
+//        snapshot.appendItems(waitingChats, toSection: .waitingChats)
+//        snapshot.appendItems(activeChats, toSection: .activeChats)
         dataSource?.apply(snapshot, animatingDifferences: true)
     }
     

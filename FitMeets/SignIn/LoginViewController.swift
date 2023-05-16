@@ -7,7 +7,7 @@
 
 import UIKit
 
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController, UITextFieldDelegate {
     
     let welcomeLabel = UILabel(text: "Welcome back!", font: .cooperHewitt30(), textColor: .white)
     let emailLabel = UILabel(text: "Email", font: .montserrat18(), textColor: .white)
@@ -34,7 +34,13 @@ class LoginViewController: UIViewController {
         view.backgroundColor = .black
         signInButton.addTarget(self, action: #selector(signInButtonTapped), for: .touchUpInside)
         signUpButton.addTarget(self, action: #selector(signUpButtonTapped), for: .touchUpInside)
+        emailTextField.delegate = self
+        passwordTextField.delegate = self
         
+    }
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -52,7 +58,12 @@ class LoginViewController: UIViewController {
         let loginVC = SignUpViewController()
         navigationController?.pushViewController(loginVC, animated: true)
     }
-    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if touches.first != nil {
+            view.endEditing(true)
+        }
+        super.touchesBegan(touches, with: event)
+    }
     
     
 }

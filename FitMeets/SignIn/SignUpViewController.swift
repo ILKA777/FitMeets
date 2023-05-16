@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SignUpViewController: UIViewController {
+class SignUpViewController: UIViewController, UITextFieldDelegate {
     
     let welcomeLabel = UILabel(text: "Nice to see you!", font: .montserratBlack30(), textColor: .white)
     let emailLabel = UILabel(text: "Email", font: .montserrat18(), textColor: .white)
@@ -19,8 +19,6 @@ class SignUpViewController: UIViewController {
     let emailTextField = OneLineTextField(color: .CustomGray(), text: "enter email")
     let passwordTextField = OneLineTextField(color: .CustomYellowGreen(), text: "enter password")
     let confirmPasswordTextField = OneLineTextField(color: .CustomBlue(), text: "enter the password again")
-    
-    
     
     let signUpButton = UIButton(title: "Sign Up", titleColor: .white, backGroundColor: .CustomGray(), font: .montserrat18(), isShadow: false, cornerRadius: 4)
     
@@ -38,8 +36,16 @@ class SignUpViewController: UIViewController {
     override func viewDidLoad() {
         setupButtons()
         super.viewDidLoad()
+        emailTextField.delegate = self
+        passwordTextField.delegate = self
+        confirmPasswordTextField.delegate = self
         view.backgroundColor = .black
         setupConstraints()
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -58,6 +64,37 @@ class SignUpViewController: UIViewController {
         navigationController?.pushViewController(loginVC, animated: true)
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if touches.first != nil {
+            view.endEditing(true)
+        }
+        super.touchesBegan(touches, with: event)
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if textField == confirmPasswordTextField || textField == passwordTextField {
+            moveViewUp()
+        }
+    }
+
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if textField == confirmPasswordTextField || textField == passwordTextField {
+            moveViewDown()
+        }
+    }
+
+
+    private func moveViewUp() {
+        UIView.animate(withDuration: 0.3) {
+            self.view.frame.origin.y = -200
+        }
+    }
+
+    private func moveViewDown() {
+        UIView.animate(withDuration: 0.3) {
+            self.view.frame.origin.y = 0
+        }
+    }
  
     
 }
