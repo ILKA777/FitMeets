@@ -27,26 +27,25 @@ class UserProfileViewController: UIViewController {
         super.viewDidLoad()
         setupSwipeGestureRecognizers()
         setupUI()
-        loadData()
     }
     
     private func setupSwipeGestureRecognizers() {
-            let swipeLeftGesture = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipeGesture(_:)))
-            swipeLeftGesture.direction = .left
-            view.addGestureRecognizer(swipeLeftGesture)
-
-            let swipeRightGesture = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipeGesture(_:)))
-            swipeRightGesture.direction = .right
-            view.addGestureRecognizer(swipeRightGesture)
+        let swipeLeftGesture = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipeGesture(_:)))
+        swipeLeftGesture.direction = .left
+        view.addGestureRecognizer(swipeLeftGesture)
+        
+        let swipeRightGesture = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipeGesture(_:)))
+        swipeRightGesture.direction = .right
+        view.addGestureRecognizer(swipeRightGesture)
+    }
+    
+    @objc private func handleSwipeGesture(_ gesture: UISwipeGestureRecognizer) {
+        if gesture.direction == .left {
+        } else if gesture.direction == .right {
+            navigationController?.popViewController(animated: true)
+            navigationController?.setNavigationBarHidden(false, animated: true)
         }
-
-        @objc private func handleSwipeGesture(_ gesture: UISwipeGestureRecognizer) {
-            if gesture.direction == .left {
-            } else if gesture.direction == .right {
-                navigationController?.popViewController(animated: true)
-                navigationController?.setNavigationBarHidden(false, animated: true)
-            }
-        }
+    }
     
     private func setupUI() {
         view.backgroundColor = .black
@@ -58,10 +57,6 @@ class UserProfileViewController: UIViewController {
         setupDescriptionTextView()
         setupEventsSegmentedControl()
         setupEventsTableView()
-    }
-    
-    private func loadData() {
-        // Загрузка данных для профиля и таблиц
     }
     
     @objc private func settingsButtonTapped(_ sender: UIButton) {
@@ -83,7 +78,7 @@ class UserProfileViewController: UIViewController {
             nicknameLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16)
         ])
         
-        nicknameLabel.text = "@nickname"
+        nicknameLabel.text = (UserDefaults.standard.string(forKey: "ProfileUsername") ?? " ")
         nicknameLabel.font = UIFont.montserratBlack18()
         nicknameLabel.textColor = .white
         
@@ -100,7 +95,6 @@ class UserProfileViewController: UIViewController {
             settingsButton.heightAnchor.constraint(equalToConstant: 44)
         ])
         
-        // Настройка иконки и обработчика события
         settingsButton.setImage(UIImage(systemName: "gear"), for: .normal)
         settingsButton.addTarget(self, action: #selector(settingsButtonTapped(_:)), for: .touchUpInside)
     }
@@ -132,9 +126,9 @@ class UserProfileViewController: UIViewController {
             nameLabel.trailingAnchor.constraint(equalTo: settingsButton.trailingAnchor)
         ])
         
-        // Настройка текста, шрифта и цвета
-        nameLabel.text = "John Doe"
-        nameLabel.font = UIFont.systemFont(ofSize: 20)
+        
+        nameLabel.text = (UserDefaults.standard.string(forKey: "ProfileName") ?? " ")  + " " + (UserDefaults.standard.string(forKey: "ProfileSurname") ?? " ")
+        nameLabel.font = .montserrat20()
         nameLabel.textColor = .white
     }
     
@@ -148,7 +142,8 @@ class UserProfileViewController: UIViewController {
             ageCityLabel.trailingAnchor.constraint(equalTo: nameLabel.trailingAnchor)
         ])
         
-        ageCityLabel.text = "25 years, New York"
+        ageCityLabel.text = (UserDefaults.standard.string(forKey: "ProfileBirhday") ?? " ") +
+        ", " + (UserDefaults.standard.string(forKey: "ProfileCity") ?? " ")
         ageCityLabel.font = .montserrat13()
         ageCityLabel.textColor = .gray
     }
@@ -163,17 +158,16 @@ class UserProfileViewController: UIViewController {
             descriptionTextView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
             descriptionTextView.heightAnchor.constraint(equalToConstant: 80)
         ])
-        
-        // Настройка текста, шрифта и цвета
-        descriptionTextView.text = "A brief description of the user profile..."
+    
+        descriptionTextView.text = UserDefaults.standard.string(forKey: "ProfileDescription")
         descriptionTextView.textColor = .white
-        descriptionTextView.font = UIFont.systemFont(ofSize: 14)
+        descriptionTextView.font = .montserrat13()
         descriptionTextView.isEditable = false
         descriptionTextView.backgroundColor = .black
     }
     
     private func setupEventsSegmentedControl() {
-     
+        
         eventsSegmentedControl.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(eventsSegmentedControl)
         
@@ -183,7 +177,6 @@ class UserProfileViewController: UIViewController {
             eventsSegmentedControl.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
         ])
         
-        // Настройка обработчика события
         eventsSegmentedControl.addTarget(self, action: #selector(eventsSegmentChanged(_:)), for: .valueChanged)
         eventsSegmentedControl.selectedSegmentIndex = 0
     }
@@ -234,15 +227,13 @@ extension UserProfileViewController: UITableViewDataSource {
             fatalError("Invalid segment index")
         }
         
-        // Настройка ячейки с данными мероприятия
         cell.textLabel?.text = event.description
-        // Здесь можно добавить дополнительную настройку ячейки
         
         return cell
     }
 }
 
-                                                 
+
 
 // MARK: - SwiftUI
 import SwiftUI
@@ -251,16 +242,16 @@ struct UserProfileVCProvider: PreviewProvider {
     static var previews: some View {
         ContainerView().edgesIgnoringSafeArea(.all)
     }
-
+    
     struct ContainerView: UIViewControllerRepresentable {
         let tabBarVC = MainTabBarController()
-
+        
         func makeUIViewController(context: UIViewControllerRepresentableContext<UserProfileVCProvider.ContainerView>) -> MainTabBarController{
             return tabBarVC
         }
-
+        
         func updateUIViewController(_ uiViewController: UserProfileVCProvider.ContainerView.UIViewControllerType, context: UIViewControllerRepresentableContext<UserProfileVCProvider.ContainerView>) {
-
+            
         }
     }
 }

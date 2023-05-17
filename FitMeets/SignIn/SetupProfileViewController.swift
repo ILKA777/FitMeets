@@ -7,8 +7,10 @@
 
 import UIKit
 
-class SetupProfileViewController: UIViewController, UITextFieldDelegate {
 
+
+class SetupProfileViewController: UIViewController, UITextFieldDelegate {
+    
     let scrollView = UIScrollView()
     let contentView = UIView()
     
@@ -18,28 +20,22 @@ class SetupProfileViewController: UIViewController, UITextFieldDelegate {
     let sexLabel = UILabel(text: "Sex", font: .montserrat18(), textColor: .white)
     let birthdayLabel = UILabel(text: "Birthday", font: .montserrat18(), textColor: .white)
     let cityLabel = UILabel(text: "City", font: .montserrat18(), textColor: .white)
-
+    
     let usernameLabel = UILabel(text: "Username *", font: .montserrat18(), textColor: .white)
-
+    
     let aboutYouLabel = UILabel(text: "About you", font: .montserrat18(), textColor: .white)
-
+    
     let sexSegmentedControl = UISegmentedControl(first: "Male", second: "Female")
     
-
-
-
     let nameTextField = OneLineTextField(font: .montserrat18(), color: .CustomGray(), text: "Enter your name")
     let surnameTextField = OneLineTextField(font: .montserrat18(), color: .CustomGray(), text: "Enter your surname")
     let birthdayTextField = OneLineTextField(font: .montserrat18(), color: .CustomGray(), text: "Enter your birthday")
     let aboutYouTextField = OneLineTextField(font: .montserrat18(), color: .CustomGray(), text: "Enter information about you")
     let cityTextField = OneLineTextField(font: .montserrat18(), color: .CustomGray(), text: "Enter your city")
     let usernameTextField = OneLineTextField(font: .montserrat18() , color: .CustomGray(), text: "Enter your username")
-
-
-
-
+    
     let continueButton = UIButton(title: "Continue", titleColor: .black, backGroundColor: .CustomYellowGreen(), font: .montserrat18(), isShadow: false, cornerRadius: 4)
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .black
@@ -52,8 +48,6 @@ class SetupProfileViewController: UIViewController, UITextFieldDelegate {
         surnameTextField.delegate = self
         setupScrollView()
         setupConstraints()
-        
-       
     }
     
     private func setupScrollView() {
@@ -84,28 +78,42 @@ class SetupProfileViewController: UIViewController, UITextFieldDelegate {
             moveViewUp()
         }
     }
-
+    
     func textFieldDidEndEditing(_ textField: UITextField) {
         if textField == usernameTextField || textField == aboutYouTextField {
             moveViewDown()
         }
     }
-
-
+    
+    
     private func moveViewUp() {
         UIView.animate(withDuration: 0.3) {
             self.view.frame.origin.y = -200
         }
     }
-
+    
     private func moveViewDown() {
         UIView.animate(withDuration: 0.3) {
             self.view.frame.origin.y = 0
         }
     }
-
     
     @objc func navigateToSecondViewController() {
+        
+        var name = nameTextField.text
+        var surname = surnameTextField.text
+        var birthday = birthdayTextField.text
+        var username = usernameTextField.text
+        var city = cityTextField.text
+        var description = aboutYouTextField.text
+        UserDefaults.standard.set(name, forKey: "ProfileName")
+        UserDefaults.standard.set(surname, forKey: "ProfileSurname")
+        UserDefaults.standard.set(birthday, forKey: "ProfileBirthday")
+        UserDefaults.standard.set(username, forKey: "ProfileUsername")
+        UserDefaults.standard.set(city, forKey: "ProfileCity")
+        UserDefaults.standard.set(description, forKey: "ProfileDescription")
+        UserDefaults.standard.synchronize()
+
         let selectSportVC = SelectSportsViewController()
         navigationController?.pushViewController(selectSportVC, animated: true)
     }
@@ -114,15 +122,13 @@ class SetupProfileViewController: UIViewController, UITextFieldDelegate {
         textField.resignFirstResponder()
         return true
     }
-    
-
 }
 
 // MARK: - Setup constraints
 extension SetupProfileViewController {
-
+    
     private func setupConstraints() {
-
+        
         let nameStackView = UIStackView(arrangedSubviews: [namelLabel, nameTextField], axis: .vertical, spacing: 0)
         let surnameStackView = UIStackView(arrangedSubviews: [surnamelLabel, surnameTextField], axis: .vertical, spacing: 0)
         let sexStackView = UIStackView(arrangedSubviews: [sexLabel, sexSegmentedControl], axis: .vertical, spacing: 0)
@@ -130,17 +136,17 @@ extension SetupProfileViewController {
         let cityStackView = UIStackView(arrangedSubviews: [cityLabel, cityTextField], axis: .vertical, spacing: 0)
         let usernameStackView = UIStackView(arrangedSubviews: [usernameLabel, usernameTextField], axis: .vertical, spacing: 0)
         let aboutYouStackView = UIStackView(arrangedSubviews: [aboutYouLabel, aboutYouTextField], axis: .vertical, spacing: 0)
-
+        
         continueButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
         continueButton.widthAnchor.constraint(equalToConstant: 10).isActive = true
-
+        
         let stackView = UIStackView(arrangedSubviews: [nameStackView, surnameStackView, birthdayStackView, cityStackView, usernameStackView, aboutYouStackView,sexStackView, continueButton], axis: .vertical, spacing: 30)
-
+        
         profileLabel.translatesAutoresizingMaskIntoConstraints = false
         stackView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(profileLabel)
         contentView.addSubview(stackView)
-
+        
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: profileLabel.bottomAnchor, constant: 50),
             stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 40),
@@ -158,8 +164,8 @@ extension SetupProfileViewController {
         ])
     }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-            super.touchesBegan(touches, with: event)
-            view.endEditing(true)
+        super.touchesBegan(touches, with: event)
+        view.endEditing(true)
     }
 }
 // MARK: - SwiftUI
@@ -169,16 +175,16 @@ struct SetupProfileVCProvider: PreviewProvider {
     static var previews: some View {
         ContainerView().edgesIgnoringSafeArea(.all)
     }
-
+    
     struct ContainerView: UIViewControllerRepresentable {
         let viewController = SetupProfileViewController()
-
+        
         func makeUIViewController(context: UIViewControllerRepresentableContext<SetupProfileVCProvider.ContainerView>) -> SetupProfileViewController{
             return viewController
         }
-
+        
         func updateUIViewController(_ uiViewController: SetupProfileVCProvider.ContainerView.UIViewControllerType, context: UIViewControllerRepresentableContext<SetupProfileVCProvider.ContainerView>) {
-
+            
         }
     }
 }

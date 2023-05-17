@@ -8,7 +8,7 @@
 import UIKit
 
 class AuthViewController: UIViewController {
-
+    
     var button: UIButton = {
         let button = UIButton()
         return button
@@ -27,7 +27,7 @@ class AuthViewController: UIViewController {
         let signUpVC = SignUpViewController()
         navigationController?.pushViewController(signUpVC, animated: true)
     }
-
+    
     @objc private func signInButtonTapped() {
         let loginVC = LoginViewController()
         navigationController?.pushViewController(loginVC, animated: true)
@@ -46,16 +46,16 @@ class AuthViewController: UIViewController {
     }
     
     func assignbackground(){
-            let background = UIImage(named: "Pasted Graphic.jpeg")
-
-            var imageView : UIImageView!
-            imageView = UIImageView(frame: view.bounds)
+        let background = UIImage(named: "Pasted Graphic.jpeg")
+        
+        var imageView : UIImageView!
+        imageView = UIImageView(frame: view.bounds)
         imageView.contentMode =  UIView.ContentMode.scaleAspectFill
-            imageView.clipsToBounds = true
-            imageView.image = background
-            imageView.center = view.center
-            view.addSubview(imageView)
-            self.view.sendSubviewToBack(imageView)
+        imageView.clipsToBounds = true
+        imageView.image = background
+        imageView.center = view.center
+        view.addSubview(imageView)
+        self.view.sendSubviewToBack(imageView)
     }
 }
 
@@ -69,7 +69,7 @@ extension AuthViewController {
         
         let emailView = ButtonFormView(label: emailLabel, button: signUpButton)
         let loginView = ButtonFormView(label: loginLabel, button: signInButton)
-    
+        
         let stackView = UIStackView(arrangedSubviews: [emailView,loginView], axis: .vertical, spacing: 60)
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -100,7 +100,5 @@ struct AuthVCProvider: PreviewProvider {
         func updateUIViewController(_ uiViewController: AuthVCProvider.ContainerView.UIViewControllerType, context: UIViewControllerRepresentableContext<AuthVCProvider.ContainerView>) {
             
         }
-        
-        
     }
 }

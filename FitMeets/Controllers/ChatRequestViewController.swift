@@ -9,6 +9,7 @@ import UIKit
 
 
 class ChatRequestViewController: UIViewController {
+    
     let containerView = UIView()
     let imageView = UIImageView(image: UIImage(named: "anime1.jpg"), contentMode: .scaleAspectFill)
     let nameLabel = UILabel(text: "Liza Rose", font: .montserrat20(), textColor: .CustomYellowGreen())
@@ -22,7 +23,6 @@ class ChatRequestViewController: UIViewController {
         super.viewDidLoad()
         customizeElements()
         setupConstraints()
-        
         view.backgroundColor = .black
     }
     
@@ -31,12 +31,9 @@ class ChatRequestViewController: UIViewController {
         containerView.translatesAutoresizingMaskIntoConstraints = false
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         aboutMeLabel.translatesAutoresizingMaskIntoConstraints = false
-        
         containerView.backgroundColor = .black
         containerView.layer.cornerRadius = 30
     }
-    
-    
 }
 
 extension ChatRequestViewController {
@@ -49,7 +46,7 @@ extension ChatRequestViewController {
         let buttonsStackView = UIStackView(arrangedSubviews: [acceptButton, denyButton], axis: .horizontal, spacing: 10)
         buttonsStackView.translatesAutoresizingMaskIntoConstraints = false
         buttonsStackView.distribution = .fillEqually
-
+        
         containerView.addSubview(buttonsStackView)
         
         NSLayoutConstraint.activate([
@@ -93,16 +90,16 @@ struct ChatRequestVCProvider: PreviewProvider {
     static var previews: some View {
         ContainerView().edgesIgnoringSafeArea(.all)
     }
-
+    
     struct ContainerView: UIViewControllerRepresentable {
         let ChatRequestVC = ChatRequestViewController()
-
+        
         func makeUIViewController(context: UIViewControllerRepresentableContext<ChatRequestVCProvider.ContainerView>) -> ChatRequestViewController{
             return ChatRequestVC
         }
-
+        
         func updateUIViewController(_ uiViewController: ChatRequestVCProvider.ContainerView.UIViewControllerType, context: UIViewControllerRepresentableContext<ChatRequestVCProvider.ContainerView>) {
-
+            
         }
     }
 }

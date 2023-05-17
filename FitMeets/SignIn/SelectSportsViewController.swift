@@ -12,6 +12,7 @@ class SelectSportsViewController: UIViewController {
     let sports = ["football", "hockey", "chess", "volleyball",
                   "cycling", "ski", "basketball", "yoga",
                   "climbing", "dancing", "running", "swimming"]
+    
     var selectedSports = [String]()
     
     override func viewDidLoad() {
@@ -27,28 +28,22 @@ class SelectSportsViewController: UIViewController {
         navigationController?.pushViewController(addPhotoVC, animated: true)
     }
 
-    
     func setupViews() {
-        // Set up the background color
         continueButton.addTarget(self, action: #selector(continueButtonTapped(_:)), for: .touchUpInside)
-
+        
         view.backgroundColor = .black
         let titleLabel = UILabel()
-            titleLabel.text = "Favorite sports"
-            titleLabel.textColor = .white
+        titleLabel.text = "Favorite sports"
+        titleLabel.textColor = .white
         titleLabel.font = .montserratBlack25()
-            titleLabel.translatesAutoresizingMaskIntoConstraints = false
-            view.addSubview(titleLabel)
-            
-            // Add constraints for titleLabel
-            NSLayoutConstraint.activate([
-                titleLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
-                titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20)
-            ])
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(titleLabel)
 
+        NSLayoutConstraint.activate([
+            titleLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20)
+        ])
         
-        
-        // Add the subtitle label
         let subtitleLabel = UILabel()
         subtitleLabel.text = "You can skip this part"
         subtitleLabel.textColor = .gray
@@ -60,9 +55,7 @@ class SelectSportsViewController: UIViewController {
             subtitleLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10),
             subtitleLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20)
         ])
-
         
-        // Add the sport buttons
         let buttonWidth: CGFloat = (view.frame.width - 60) / 3
         let buttonHeight: CGFloat = 50
         var xPosition: CGFloat = 20
@@ -80,18 +73,12 @@ class SelectSportsViewController: UIViewController {
             button.addTarget(self, action: #selector(sportButtonTapped(_:)), for: .touchUpInside)
             view.addSubview(button)
             
-            // Update the position variables for the next button
             xPosition += buttonWidth + 10
             if xPosition + buttonWidth > view.frame.width {
                 xPosition = 20
                 yPosition += buttonHeight + 10
             }
         }
-        
-        
-
-  
-        
     }
     
     @objc func sportButtonTapped(_ sender: UIButton) {
@@ -107,38 +94,24 @@ class SelectSportsViewController: UIViewController {
     
     @objc func continueButtonTapped(_ sender: UIButton) {
         navigateToAddPhotoVC()
-
-        
-        
     }
 }
 
 // MARK: - Setup constraints
 extension SelectSportsViewController {
-
+    
     private func setupConstraints() {
-
-        
-
         
         continueButton.translatesAutoresizingMaskIntoConstraints = false
-            
+        
         view.addSubview(continueButton)
-            
+        
         NSLayoutConstraint.activate([
             continueButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
             continueButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             continueButton.heightAnchor.constraint(equalToConstant: 60),
             continueButton.widthAnchor.constraint(equalToConstant: 300)
         ])
-//        sportsLabel.translatesAutoresizingMaskIntoConstraints = false
-//        
-//        view.addSubview(sportsLabel)
-//        
-//        NSLayoutConstraint.activate([
-//            sportsLabel.pinLeft(to: self.view, 40),
-//            sportsLabel.pinTop(to: self.view, 90)
-//        ])
     }
 }
 
@@ -150,16 +123,16 @@ struct SelectSportsVCProvider: PreviewProvider {
     static var previews: some View {
         ContainerView().edgesIgnoringSafeArea(.all)
     }
-
+    
     struct ContainerView: UIViewControllerRepresentable {
         let viewController = SelectSportsViewController()
-
+        
         func makeUIViewController(context: UIViewControllerRepresentableContext<SelectSportsVCProvider.ContainerView>) -> SelectSportsViewController{
             return viewController
         }
-
+        
         func updateUIViewController(_ uiViewController: SelectSportsVCProvider.ContainerView.UIViewControllerType, context: UIViewControllerRepresentableContext<SelectSportsVCProvider.ContainerView>) {
-
+            
         }
     }
 }

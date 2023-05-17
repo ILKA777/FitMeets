@@ -20,13 +20,13 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     let signInButton = UIButton(title: "Sign In", titleColor: .white, backGroundColor: .CustomGray(), font: .montserrat18(), isShadow: false, cornerRadius: 4)
     let signUpButton = UIButton()
     
-    
     private func setupButtons() {
         signUpButton.setTitle("Login", for: .normal)
         signUpButton.setTitleColor(.CustomYellowGreen(), for: .normal)
         signUpButton.titleLabel?.font = .montserrat18()
         
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupConstraints()
@@ -36,8 +36,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         signUpButton.addTarget(self, action: #selector(signUpButtonTapped), for: .touchUpInside)
         emailTextField.delegate = self
         passwordTextField.delegate = self
-        
     }
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
@@ -48,12 +48,14 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         signInButton.addTarget(self, action: #selector(signInButtonTapped), for: .touchUpInside)
         signUpButton.addTarget(self, action: #selector(signUpButtonTapped), for: .touchUpInside)
     }
-
+    
     @objc private func signInButtonTapped() {
+        
         let mainVC = MainTabBarController()
         navigationController?.pushViewController(mainVC, animated: true)
     }
-
+    
+    
     @objc private func signUpButtonTapped() {
         let loginVC = SignUpViewController()
         navigationController?.pushViewController(loginVC, animated: true)
@@ -64,49 +66,41 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         }
         super.touchesBegan(touches, with: event)
     }
-    
-    
 }
 
-// MARK: Setup constraints
 
+// MARK: Setup constraints
 extension LoginViewController {
     private func setupConstraints() {
         let emailStackView = UIStackView(arrangedSubviews: [emailLabel, emailTextField],
-        axis: .vertical,
-        spacing: 0)
+                                         axis: .vertical,
+                                         spacing: 0)
         
         let passwordStackView = UIStackView(arrangedSubviews: [passwordLabel, passwordTextField],
-            axis: .vertical,
-            spacing: 0)
+                                            axis: .vertical,
+                                            spacing: 0)
         
         
         signInButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
         
-        
         let stackView = UIStackView(arrangedSubviews: [emailStackView, passwordStackView, signInButton], axis: .vertical, spacing: 40)
         
         let bottomStackView = UIStackView(arrangedSubviews: [needAnAccountLabel, signUpButton ],
-            axis: .horizontal,
-            spacing: 0)
+                                          axis: .horizontal,
+                                          spacing: 0)
         
         welcomeLabel.translatesAutoresizingMaskIntoConstraints = false
         stackView.translatesAutoresizingMaskIntoConstraints = false
         bottomStackView.translatesAutoresizingMaskIntoConstraints = false
-
-        
-        
         
         bottomStackView.alignment = .firstBaseline
         view.addSubview(welcomeLabel)
         view.addSubview(stackView)
         view.addSubview(bottomStackView)
         
-        
         NSLayoutConstraint.activate([
             welcomeLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 160),
             welcomeLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)
-
         ])
         
         NSLayoutConstraint.activate([
@@ -118,16 +112,8 @@ extension LoginViewController {
             bottomStackView.topAnchor.constraint(equalTo: stackView.bottomAnchor,constant: 60),
             bottomStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
             bottomStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40)])
-        
-        
-        
     }
-    
 }
-
-
-
-
 
 // MARK: - SwiftUI
 import SwiftUI
@@ -147,7 +133,5 @@ struct LoginVCProvider: PreviewProvider {
         func updateUIViewController(_ uiViewController: LoginVCProvider.ContainerView.UIViewControllerType, context: UIViewControllerRepresentableContext<LoginVCProvider.ContainerView>) {
             
         }
-        
-        
     }
 }

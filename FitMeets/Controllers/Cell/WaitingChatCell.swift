@@ -9,7 +9,6 @@ import UIKit
 
 class WaitingChatCell: UICollectionViewCell, SelfConfiguringCell {
     
-    
     static var reuseId: String = "WaitingChatCell"
     
     let friendImageView = UIImageView()
@@ -37,7 +36,7 @@ class WaitingChatCell: UICollectionViewCell, SelfConfiguringCell {
             friendImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             friendImageView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
             friendImageView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
-        
+            
         ])
     }
 }
@@ -49,16 +48,16 @@ struct WaitingChatProvider: PreviewProvider {
     static var previews: some View {
         ContainerView().edgesIgnoringSafeArea(.all)
     }
-
+    
     struct ContainerView: UIViewControllerRepresentable {
         let tabBarVC = MainTabBarController()
-
+        
         func makeUIViewController(context: UIViewControllerRepresentableContext<WaitingChatProvider.ContainerView>) -> MainTabBarController{
             return tabBarVC
         }
-
+        
         func updateUIViewController(_ uiViewController: WaitingChatProvider.ContainerView.UIViewControllerType, context: UIViewControllerRepresentableContext<WaitingChatProvider.ContainerView>) {
-
+            
         }
     }
 }

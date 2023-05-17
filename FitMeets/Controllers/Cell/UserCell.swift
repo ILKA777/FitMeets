@@ -9,13 +9,10 @@ import UIKit
 
 class UserCell: UICollectionViewCell, SelfConfiguringCell {
     
-    
     let userImageView = UIImageView()
     let userName = UILabel(text: "text", font: .montserrat20(), textColor: .white)
     let containerView = UIView()
     let gradientView = UIView()
-    
-    
     
     static var reuseId: String = "UserCell"
     
@@ -32,7 +29,6 @@ class UserCell: UICollectionViewCell, SelfConfiguringCell {
         userImageView.image = UIImage(named: user.avatarStringURL)
         userName.text = user.username
     }
-
     
     private func setupConstraints() {
         userImageView.translatesAutoresizingMaskIntoConstraints = false
@@ -44,7 +40,6 @@ class UserCell: UICollectionViewCell, SelfConfiguringCell {
         addSubview(userImageView)
         addSubview(gradientView)
         addSubview(userName)
-        
         
         NSLayoutConstraint.activate([
             userImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
@@ -66,12 +61,9 @@ class UserCell: UICollectionViewCell, SelfConfiguringCell {
             gradientView.heightAnchor.constraint(equalToConstant: 78),
             gradientView.widthAnchor.constraint(equalToConstant: 8)
         ])
-        
     }
-    
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
 }

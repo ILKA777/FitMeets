@@ -53,19 +53,26 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         signUpButton.addTarget(self, action: #selector(signUpButtonTapped), for: .touchUpInside)
         loginButton.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
     }
-
+    
     @objc private func signUpButtonTapped() {
-        if (passwordTextField.text?.count ?? 0 < 8 || passwordTextField.text != confirmPasswordTextField.text) {
-            // allert
-            return;
+        let password = passwordTextField.text ?? ""
+        let confirmPassword = confirmPasswordTextField.text ?? ""
+        
+        if password.count < 8 {
+            showPasswordAlert(message: "Password should be at least 8 characters long.")
+            return
         }
         
+        if password != confirmPassword {
+            showPasswordAlert(message: "Passwords do not match.")
+            return
+        }
         
         let url = URL(string: "http://localhost:8080/api/v1/auth/register")!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-
+        
         var registerRequest = RegisterRequest(firstname: "DemoName", lastname: "LastDemoName", email:  emailTextField.text ?? "", password: passwordTextField.text ?? "")
         
         do {
@@ -75,26 +82,51 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
             print("Failed to encode request body: \(error)")
             return
         }
-
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            guard let data = data else {
-                print("No data returned: \(error?.localizedDescription ?? "Unknown error")")
+        
+        let task = URLSession.shared.dataTask(with: request) { [weak self] data, response, error in
+            guard let self = self else { return }
+            
+            if let error = error {
+                print("Error occurred: \(error)")
+                // Show an error alert
+                DispatchQueue.main.async {
+                    self.showAlert(title: "Error", message: error.localizedDescription)
+                }
                 return
             }
             
-            print(data)
-
-            // Обработка ответа от сервера
+            guard let data = data else {
+                print("No data returned")
+                // Show a generic error alert
+                DispatchQueue.main.async {
+                    self.showAlert(title: "Error", message: "An unexpected error occurred")
+                }
+                return
+            }
+            
+            
         }
-
+        
         task.resume()
-        
-        
-        // after registration
         let setupProfileVC = SetupProfileViewController()
-        navigationController?.pushViewController(setupProfileVC, animated: true)
+        self.navigationController?.pushViewController(setupProfileVC, animated: true)
+            
     }
-
+    
+    private func showAlert(title: String, message: String) {
+            let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+            alertController.addAction(okAction)
+            present(alertController, animated: true, completion: nil)
+        }
+    
+    private func showPasswordAlert(message: String) {
+        let alertController = UIAlertController(title: "Invalid Password", message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alertController.addAction(okAction)
+        present(alertController, animated: true, completion: nil)
+    }
+    
     @objc private func loginButtonTapped() {
         let loginVC = LoginViewController()
         navigationController?.pushViewController(loginVC, animated: true)
@@ -112,27 +144,25 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
             moveViewUp()
         }
     }
-
+    
     func textFieldDidEndEditing(_ textField: UITextField) {
         if textField == confirmPasswordTextField || textField == passwordTextField {
             moveViewDown()
         }
     }
-
-
+    
+    
     private func moveViewUp() {
         UIView.animate(withDuration: 0.3) {
             self.view.frame.origin.y = -200
         }
     }
-
+    
     private func moveViewDown() {
         UIView.animate(withDuration: 0.3) {
             self.view.frame.origin.y = 0
         }
     }
- 
-    
 }
 
 

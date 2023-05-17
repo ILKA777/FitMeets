@@ -9,10 +9,9 @@ import UIKit
 
 class SubscribersViewController: UIViewController {
     
-    let users = Bundle.main.decode([MUser].self, from: "users.json")
+    var users: [MUser] = []
     var collectionView: UICollectionView!
     var dataSource: UICollectionViewDiffableDataSource<Int, MUser>!
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,13 +20,29 @@ class SubscribersViewController: UIViewController {
         setupSearchBar()
         setupCollectionView()
         createDataSource()
-        reloadData(with: nil)
+        loadUsersFromJSON()
+    }
+    
+    private func loadUsersFromJSON() {
+        guard let jsonURL = Bundle.main.url(forResource: "users", withExtension: "json") else {
+            return
+        }
+        do {
+            let jsonData = try Data(contentsOf: jsonURL)
+            let decoder = JSONDecoder()
+            users = try decoder.decode([MUser].self, from: jsonData)
+            reloadData(with: nil)
+        } catch {
+            print("Error decoding users from JSON: \(error)")
+        }
     }
     
     private func setupCollectionView() {
         collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createCompositionalLayout())
         collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         collectionView.backgroundColor = .black
+        collectionView.delegate = self
+
         view.addSubview(collectionView)
         
         collectionView.register(UserCell.self, forCellWithReuseIdentifier: UserCell.reuseId)
@@ -48,21 +63,20 @@ class SubscribersViewController: UIViewController {
             customTitleView.heightAnchor.constraint(equalToConstant: 44)
         ])
     }
-
     
     @objc private func messageButtonTapped() {
         let chatViewController = ChatViewController()
         navigationController?.pushViewController(chatViewController, animated: true)
     }
-
+    
     private func reloadData(with searchText: String?) {
         let filtered = users.filter { (user) -> Bool in
             user.contains(filter: searchText)
         }
         var snapshot = NSDiffableDataSourceSnapshot<Int, MUser>()
         snapshot.appendSections([0])
-        //snapshot.appendItems(filtered, toSection: 0)
-
+        snapshot.appendItems(filtered, toSection: 0)
+        
         dataSource?.apply(snapshot, animatingDifferences: true)
     }
 }
@@ -74,7 +88,6 @@ extension SubscribersViewController {
             guard indexPath.section == 0 else {
                 fatalError("Unknown section kind")
             }
-            
             
             return self.configure(collectionView: collectionView, cellType: UserCell.self, with: user, for: indexPath)
         })
@@ -104,24 +117,34 @@ extension SubscribersViewController {
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(78))
         let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
-       
         let section = NSCollectionLayoutSection(group: group)
         section.interGroupSpacing = 8
         section.contentInsets = NSDirectionalEdgeInsets.init(top: 16, leading: 20, bottom: 0, trailing: 20)
         
         return section
-        
     }
-        
 }
-    
+
+extension SubscribersViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let user = dataSource.itemIdentifier(for: indexPath) else {
+            return
+        }
+        
+        let subsViewController = SubscriberProfileViewController()
+        subsViewController.user = user
+        
+        navigationController?.pushViewController(subsViewController, animated: true)
+    }
+}
+
 // MARK: - UISearchBarDelegate
 extension SubscribersViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         reloadData(with: searchText)
     }
 }
-    
+
 // MARK: - SwiftUI
 import SwiftUI
 

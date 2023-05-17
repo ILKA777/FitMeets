@@ -9,8 +9,8 @@ import UIKit
 
 class ChatViewController:UIViewController {
     
-    let activeChats = Bundle.main.decode([MChat].self, from: "activeChats.json")
-    let waitingChats = Bundle.main.decode([MChat].self, from: "waitingChats.json")
+    var activeChats: [MChat] = []
+    var waitingChats: [MChat] = []
     
     var collectionView: UICollectionView!
     
@@ -26,16 +26,59 @@ class ChatViewController:UIViewController {
             }
         }
     }
+    
     var dataSource: UICollectionViewDiffableDataSource<Section, MChat>?
     
+    private func loadActiveChatsFromJSON() {
+        guard let jsonURL = Bundle.main.url(forResource: "activeChats", withExtension: "json") else {
+            return
+        }
+        do {
+            let jsonData = try Data(contentsOf: jsonURL)
+            let decoder = JSONDecoder()
+            activeChats = try decoder.decode([MChat].self, from: jsonData)
+            reloadData()
+        } catch {
+            print("Error decoding users from JSON: \(error)")
+        }
+    }
     
+    private func loadWaitingChatsFromJSON() {
+        guard let jsonURL = Bundle.main.url(forResource: "waitingChats", withExtension: "json") else {
+            return
+        }
+        do {
+            let jsonData = try Data(contentsOf: jsonURL)
+            let decoder = JSONDecoder()
+            waitingChats = try decoder.decode([MChat].self, from: jsonData)
+            reloadData()
+        } catch {
+            print("Error decoding users from JSON: \(error)")
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupSearchBar()
         setupCollectionView()
         createDataSource()
+        loadActiveChatsFromJSON()
+        loadWaitingChatsFromJSON()
         reloadData()
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap))
+        tapGesture.cancelsTouchesInView = false
+        collectionView.addGestureRecognizer(tapGesture)
+    
+
+    }
+    
+    @objc private func handleTap() {
+        view.endEditing(true)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
     
     private func setupCollectionView() {
@@ -55,15 +98,14 @@ class ChatViewController:UIViewController {
     private func reloadData() {
         var snapshot = NSDiffableDataSourceSnapshot<Section, MChat>()
         snapshot.appendSections([.waitingChats, .activeChats])
-//        snapshot.appendItems(waitingChats, toSection: .waitingChats)
-//        snapshot.appendItems(activeChats, toSection: .activeChats)
+        snapshot.appendItems(waitingChats, toSection: .waitingChats)
+        snapshot.appendItems(activeChats, toSection: .activeChats)
         dataSource?.apply(snapshot, animatingDifferences: true)
     }
     
     
     private func setupSearchBar() {
         navigationController?.navigationBar.barTintColor = .black
-
         navigationController?.navigationBar.shadowImage = UIImage()
         let searchController = UISearchController(searchResultsController: nil)
         navigationItem.searchController = searchController
@@ -72,7 +114,6 @@ class ChatViewController:UIViewController {
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.delegate = self
         searchController.searchBar.searchTextField.textColor = .white
-        
     }
 }
 
@@ -81,25 +122,22 @@ class ChatViewController:UIViewController {
 
 extension ChatViewController {
     
-    
     private func createDataSource() {
         dataSource = UICollectionViewDiffableDataSource<Section, MChat>(collectionView: collectionView, cellProvider: {(collectionView, indexPath,chat) -> UICollectionViewCell? in
-            
             
             guard let section = Section(rawValue: indexPath.section) else {
                 fatalError("Unknown section kind")
             }
             
             switch section {
-                
             case .activeChats:
                 return self.configure(collectionView: collectionView, cellType: ActiveChatCell.self, with: chat, for: indexPath)
                 
             case .waitingChats:
                 return self.configure(collectionView: collectionView, cellType: WaitingChatCell.self, with: chat, for: indexPath)
             }
-            
         })
+        
         dataSource?.supplementaryViewProvider = {
             collectionView, kind, indexPath in
             guard let sectionHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: SectionHeader.reuseId, for: indexPath) as?
@@ -109,18 +147,17 @@ extension ChatViewController {
             sectionHeader.configure(text: section.description(), font: .montserrat20(), textColor: .CustomYellowGreen())
             return sectionHeader
         }
-        
     }
 }
+
 // MARK: - Setup layout
 extension ChatViewController {
     private func createCompositionalLayout() -> UICollectionViewLayout {
         let layout = UICollectionViewCompositionalLayout {(sectionIndex, layoutEnvironment) -> NSCollectionLayoutSection? in
-        
+            
             guard let section = Section(rawValue: sectionIndex) else {
                 fatalError("Unknown section kind")
             }
-            
             switch section {
                 
             case .activeChats:
@@ -136,7 +173,6 @@ extension ChatViewController {
         return layout
     }
     
-    
     private func createWaitingChats() -> NSCollectionLayoutSection {
         
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
@@ -150,15 +186,13 @@ extension ChatViewController {
         
         section.orthogonalScrollingBehavior = .continuous
         
-        
-        
         let sectionHeader = createSectionHeader()
         
         section.boundarySupplementaryItems = [sectionHeader]
         
         return section
         
-       
+        
     }
     
     private func createActiveChats() -> NSCollectionLayoutSection {
@@ -167,7 +201,7 @@ extension ChatViewController {
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(78))
         let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
-       
+        
         let section = NSCollectionLayoutSection(group: group)
         section.interGroupSpacing = 8
         section.contentInsets = NSDirectionalEdgeInsets.init(top: 16, leading: 20, bottom: 0, trailing: 20)
@@ -176,7 +210,6 @@ extension ChatViewController {
         section.boundarySupplementaryItems = [sectionHeader]
         
         return section
-        
     }
     
     private func createSectionHeader() -> NSCollectionLayoutBoundarySupplementaryItem {
@@ -187,14 +220,13 @@ extension ChatViewController {
         return sectionHeader
     }
 }
+
 // MARK: - UISearchBarDelegate
 extension ChatViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         print(searchText)
     }
-    
 }
-
 
 // MARK: - SwiftUI
 import SwiftUI
@@ -203,16 +235,16 @@ struct ChatVCProvider: PreviewProvider {
     static var previews: some View {
         ContainerView().edgesIgnoringSafeArea(.all)
     }
-
+    
     struct ContainerView: UIViewControllerRepresentable {
         let tabBarVC = MainTabBarController()
-
+        
         func makeUIViewController(context: UIViewControllerRepresentableContext<ChatVCProvider.ContainerView>) -> MainTabBarController{
             return tabBarVC
         }
-
+        
         func updateUIViewController(_ uiViewController: ChatVCProvider.ContainerView.UIViewControllerType, context: UIViewControllerRepresentableContext<ChatVCProvider.ContainerView>) {
-
+            
         }
     }
 }

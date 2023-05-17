@@ -43,7 +43,6 @@ class CustomTitleView: UIView {
             searchBar.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             searchBar.topAnchor.constraint(equalTo: self.topAnchor),
             searchBar.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-            
             messageButton.leadingAnchor.constraint(equalTo: searchBar.trailingAnchor, constant: 8),
             messageButton.trailingAnchor.constraint(equalTo: self.trailingAnchor),
             messageButton.topAnchor.constraint(equalTo: self.topAnchor),

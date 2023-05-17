@@ -12,7 +12,7 @@ class MainTabBarController:UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.hidesBackButton = true
-       
+        
         tabBar.tintColor = .CustomYellowGreen()
         let homeViewController = HomeViewController()
         let subscribersViewController = SubscribersViewController()
@@ -26,16 +26,12 @@ class MainTabBarController:UITabBarController {
         let personImage = UIImage(systemName: "person")!
         let bellImage = UIImage(systemName: "bell")!
         
-        
-        
-        
         viewControllers = [
             generateNavigationController(rootViewController: homeViewController, title: "", image: homeImage),
             generateNavigationController(rootViewController: subscribersViewController, title: "", image: peopleImage),
             generateNavigationController(rootViewController: addEventViewController, title: "", image: plusImage),
             generateNavigationController(rootViewController: notificationsViewController, title: "", image: bellImage),
             generateNavigationController(rootViewController: profileViewController, title: "", image: personImage)
-           
         ]
     }
     

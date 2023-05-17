@@ -9,6 +9,7 @@
 import UIKit
 
 struct MUser: Hashable, Decodable {
+    
     var username: String
     var avatarStringURL: String
     var id: Int

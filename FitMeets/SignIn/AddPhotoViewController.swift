@@ -56,11 +56,9 @@ class AddPhotoViewController: UIViewController {
         homeVC.modalPresentationStyle = .fullScreen
         present(homeVC, animated: true, completion: nil)
     }
-
     
     func setupViews() {
         createAccountButton.addTarget(self, action: #selector(createAccountButtonTapped(_:)), for: .touchUpInside)
-
         view.addSubview(titleLabel)
         view.addSubview(subtitleLabel)
         view.addSubview(addPhotoView)
@@ -85,6 +83,7 @@ class AddPhotoViewController: UIViewController {
         ])
     }
 }
+
 // MARK: - SwiftUI
 import SwiftUI
 

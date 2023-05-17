@@ -9,7 +9,6 @@
 import UIKit
 
 class ActiveChatCell: UICollectionViewCell, SelfConfiguringCell {
- 
     
     static var reuseId: String = "ActiveChatCell"
     
@@ -25,14 +24,10 @@ class ActiveChatCell: UICollectionViewCell, SelfConfiguringCell {
         lastMessage.text = chat.lastMessage
     }
     
-    
-    
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .black
         setupConstraints()
-    
         self.layer.cornerRadius = 4
         self.clipsToBounds = true
     }
@@ -41,6 +36,7 @@ class ActiveChatCell: UICollectionViewCell, SelfConfiguringCell {
         fatalError("init(coder:) has not been implemented")
     }
 }
+
 // MARK: - Setup constraints
 extension ActiveChatCell {
     private func setupConstraints() {
@@ -87,6 +83,7 @@ extension ActiveChatCell {
         ])
     }
 }
+
 // MARK: - SwiftUI
 import SwiftUI
 
@@ -94,16 +91,16 @@ struct ActiveChatProvider: PreviewProvider {
     static var previews: some View {
         ContainerView().edgesIgnoringSafeArea(.all)
     }
-
+    
     struct ContainerView: UIViewControllerRepresentable {
         let tabBarVC = MainTabBarController()
-
+        
         func makeUIViewController(context: UIViewControllerRepresentableContext<ActiveChatProvider.ContainerView>) -> MainTabBarController{
             return tabBarVC
         }
-
+        
         func updateUIViewController(_ uiViewController: ActiveChatProvider.ContainerView.UIViewControllerType, context: UIViewControllerRepresentableContext<ActiveChatProvider.ContainerView>) {
-
+            
         }
     }
 }

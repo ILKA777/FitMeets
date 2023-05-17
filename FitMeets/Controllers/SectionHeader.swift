@@ -12,13 +12,11 @@ class SectionHeader: UICollectionReusableView {
     
     let title = UILabel()
     
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
         title.translatesAutoresizingMaskIntoConstraints = false
         addSubview(title)
-        
         
         NSLayoutConstraint.activate([
             title.topAnchor.constraint(equalTo: self.topAnchor),
@@ -26,7 +24,6 @@ class SectionHeader: UICollectionReusableView {
             title.trailingAnchor.constraint(equalTo: self.trailingAnchor),
             title.bottomAnchor.constraint(equalTo: self.bottomAnchor)
         ])
-        
     }
     
     func configure(text: String, font: UIFont?, textColor: UIColor) {

@@ -1,0 +1,33 @@
+[
+    {
+        "username": "Peter Brown",
+        "userImageString": "human16",
+        "lastMessage": "How are you?",
+        "id": 1
+    },
+    {
+        "username": "Ivan Dark",
+        "userImageString": "human17",
+        "lastMessage": "Where are you?",
+        "id": 2
+    },
+    {
+        "username": "Liza Rose",
+        "userImageString": "human18",
+        "lastMessage": "Who are you?",
+        "id": 3
+    },
+    {
+        "username": "Nika Min",
+        "userImageString": "human19",
+        "lastMessage": "How old are you?",
+        "id": 4
+    },
+    {
+        "username": "Sasha Love",
+        "userImageString": "human20",
+        "lastMessage": "Where are we?",
+        "id": 5
+    }
+]
+

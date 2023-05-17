@@ -8,9 +8,11 @@
 import UIKit
 
 class SettingsViewController: UIViewController, UIPopoverPresentationControllerDelegate{
+    
     var selectedLanguage: String?
+    
     var selectedTheme: String?
-
+    
     let titleLabel = UILabel(text: "Settings", font: .montserratBlack25(), textColor: .white)
     
     let language = ["Russian", "English"]
@@ -18,8 +20,6 @@ class SettingsViewController: UIViewController, UIPopoverPresentationControllerD
     let deleteAccountButton = UIButton(title: "Delete Account", titleColor: .white, backGroundColor: .CustomGray(), font: .montserrat18(), isShadow: false, cornerRadius: 4)
     let languageButton = UIButton(title: "Change Language", titleColor: .black, backGroundColor: .CustomYellowGreen(), font: .montserrat18(), isShadow: false, cornerRadius: 4)
     let themeButton = UIButton(title: "Change Theme", titleColor: .black, backGroundColor: .CustomYellowGreen(), font: .montserrat18(), isShadow: false, cornerRadius: 4)
-    
-    
     
     lazy var languageTableView: UITableView = {
         let tableView = UITableView()
@@ -32,7 +32,7 @@ class SettingsViewController: UIViewController, UIPopoverPresentationControllerD
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "ThemeCell")
         return tableView
     }()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -54,10 +54,10 @@ class SettingsViewController: UIViewController, UIPopoverPresentationControllerD
         themePopoverViewController.preferredContentSize = CGSize(width: 200, height: 300)
         
         let swipeLeftGesture = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipeGesture(_:)))
-            swipeLeftGesture.direction = .left
-            view.addGestureRecognizer(swipeLeftGesture)
-            
-            
+        swipeLeftGesture.direction = .left
+        view.addGestureRecognizer(swipeLeftGesture)
+        
+        
         let swipeRightGesture = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipeGesture(_:)))
         swipeRightGesture.direction = .right
         view.addGestureRecognizer(swipeRightGesture)
@@ -76,7 +76,7 @@ class SettingsViewController: UIViewController, UIPopoverPresentationControllerD
             navigationController?.setNavigationBarHidden(false, animated: true)
         }
     }
-
+    
     
     @objc func showThemeList(_ sender: UIButton) {
         let popoverViewController = UIViewController()
@@ -97,7 +97,7 @@ class SettingsViewController: UIViewController, UIPopoverPresentationControllerD
             }
         }
     }
-
+    
     @objc func showLanguageList(_ sender: UIButton) {
         let popoverViewController = UIViewController()
         popoverViewController.view.addSubview(languageTableView)
@@ -117,8 +117,8 @@ class SettingsViewController: UIViewController, UIPopoverPresentationControllerD
             }
         }
     }
-
-
+    
+    
     private func setupViews() {
         
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -126,35 +126,35 @@ class SettingsViewController: UIViewController, UIPopoverPresentationControllerD
         
         languageButton.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(languageButton)
-
+        
         themeButton.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(themeButton)
         
-
+        
         deleteAccountButton.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(deleteAccountButton)
     }
-
+    
     private func setupConstraints() {
         NSLayoutConstraint.activate([
             titleLabel.pinLeft(to: self.view, 40),
             titleLabel.pinTop(to: self.view, 90)
         ])
-
+        
         NSLayoutConstraint.activate([
             languageButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
             languageButton.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 30),
             languageButton.widthAnchor.constraint(equalToConstant: 250),
             languageButton.heightAnchor.constraint(equalToConstant: 40)
         ])
-
+        
         NSLayoutConstraint.activate([
             themeButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
             themeButton.topAnchor.constraint(equalTo: languageButton.bottomAnchor, constant: 20),
             themeButton.widthAnchor.constraint(equalToConstant: 250),
             themeButton.heightAnchor.constraint(equalToConstant: 40)
         ])
-
+        
         NSLayoutConstraint.activate([
             deleteAccountButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
             deleteAccountButton.topAnchor.constraint(equalTo: themeButton.bottomAnchor, constant: 20),
@@ -173,7 +173,7 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
         }
         return 0
     }
-
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if tableView == languageTableView {
             let cell = tableView.dequeueReusableCell(withIdentifier: "LanguageCell", for: indexPath)
@@ -186,17 +186,17 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
         }
         return UITableViewCell()
     }
-
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if tableView == languageTableView {
-                selectedLanguage = language[indexPath.row]
-                languageButton.setTitle(selectedLanguage, for: .normal)
-            } else if tableView == themeTableView {
-                selectedTheme = theme[indexPath.row]
-                themeButton.setTitle(selectedTheme, for: .normal)
-            }
-            tableView.deselectRow(at: indexPath, animated: true)
-            dismiss(animated: true, completion: nil)
+            selectedLanguage = language[indexPath.row]
+            languageButton.setTitle(selectedLanguage, for: .normal)
+        } else if tableView == themeTableView {
+            selectedTheme = theme[indexPath.row]
+            themeButton.setTitle(selectedTheme, for: .normal)
+        }
+        tableView.deselectRow(at: indexPath, animated: true)
+        dismiss(animated: true, completion: nil)
     }
     
     func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {

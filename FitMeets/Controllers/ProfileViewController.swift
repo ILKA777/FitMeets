@@ -11,15 +11,13 @@ class ProfileViewController: UIViewController {
     
     let containerView = UIView()
     
-    let imageView = UIImageView(image: UIImage(named: "anime1.jpg"), contentMode: .scaleAspectFill)
+    let imageView = UIImageView(image: UIImage(named: "human11.jpg"), contentMode: .scaleAspectFill)
+    
     let nameLabel = UILabel(text: "Liza Rose", font: .montserrat20(), textColor: .CustomYellowGreen())
     
     let aboutMeLabel = UILabel(text: "lalalalla", font: .montserrat18(), textColor: .white)
     
-    
     let myTextField = InsertableTextField()
-    
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -104,17 +102,16 @@ struct ProfileVCProvider: PreviewProvider {
     static var previews: some View {
         ContainerView().edgesIgnoringSafeArea(.all)
     }
-
+    
     struct ContainerView: UIViewControllerRepresentable {
         let profileVC = ProfileViewController()
-
+        
         func makeUIViewController(context: UIViewControllerRepresentableContext<ProfileVCProvider.ContainerView>) -> ProfileViewController{
             return profileVC
         }
-
+        
         func updateUIViewController(_ uiViewController: ProfileVCProvider.ContainerView.UIViewControllerType, context: UIViewControllerRepresentableContext<ProfileVCProvider.ContainerView>) {
-
+            
         }
     }
 }
-

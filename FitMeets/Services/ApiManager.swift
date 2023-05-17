@@ -34,11 +34,9 @@ enum ApiType {
         }
     }
     
-    // наверное нужна обработка всяких 404 505 ошибок потому что
-    // тут явно извлекаем значения из url без проверок
     var request: URLRequest {
         let url = URL(string: path, relativeTo:
-        URL(string: baseURL)!)!
+                        URL(string: baseURL)!)!
         var request = URLRequest(url: url)
         request.allHTTPHeaderFields = headers
         switch self {
@@ -67,19 +65,6 @@ class ApiManager {
         }
         task.resume()
     }
-    
-//    func getUsers(completion: @escaping (MUser) -> Void) {
-//        let request = ApiType.getEvent.request
-//        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-//            if let data = data, let users = try? JSONDecoder().decode(MUser.self, from: data) {
-//                completion(users)
-//            } else {
-//                completion([])
-//            }
-//        }
-//        task.resume()
-//    }
-    
 }
 
 
